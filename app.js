@@ -3,6 +3,14 @@ const session = require('express-session');
 const redis = require('redis');
 const connectRedis = require('connect-redis');
 
+const { Client } = require('pg');
+const pgClient = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
+
 const app = express();
 const RedisStore = connectRedis(session);
 const redisClient = redis.createClient(process.env.REDIS_URL);
@@ -33,4 +41,14 @@ app.get('/', (req, res) => {
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
+});
+
+pgClient.connect();
+
+pgClient.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
+  if (err) throw err;
+  for (let row of res.rows) {
+    console.log(JSON.stringify(row));
+  }
+  pgClient.end();
 });
