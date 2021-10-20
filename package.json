@@ -1,0 +1,22 @@
+{
+  "name": "junctionx-budapest-6k0h7wbma",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zmedgyes/junctionx-budapest-6k0h7wbma.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zmedgyes/junctionx-budapest-6k0h7wbma/issues"
+  },
+  "homepage": "https://github.com/zmedgyes/junctionx-budapest-6k0h7wbma#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
