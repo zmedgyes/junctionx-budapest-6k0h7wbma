@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node ./backend/app.js",
-    "build-frontend": "cd ./frontend && npm install && npm run build && npm prune --production",
+    "build-frontend": "cd ./frontend && npm install --production=false && npm run build && npm prune --production",
     "build-backend": "cd ./backend && npm install --only=prod",
     "build": "npm-run-all --parallel build-backend build-frontend",
     "watch-frontend": "cd ./frontend && npm run watch",
