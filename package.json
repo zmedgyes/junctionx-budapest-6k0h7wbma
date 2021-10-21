@@ -10,7 +10,10 @@
     "build": "npm-run-all --parallel build-backend build-frontend",
     "watch-frontend": "cd ./frontend && npm run watch",
     "watch-backend": "nodemon --watch src backend/app.js",
-    "dev": "npm-run-all --parallel watch-backend watch-frontend"
+    "dev": "npm-run-all --parallel watch-backend watch-frontend",
+    "ci-frontend": "cd ./frontend && npm ci",
+    "ci-backend": "cd ./backend && npm ci",
+    "ci-all": "npm ci && npm-run-all --parallel ci-frontend ci-backend"
   },
   "repository": {
     "type": "git",
