@@ -1,9 +1,9 @@
-const basicRoutes = require('../routes/basic-routes');
+const exampleRoutes = require('../routes/example-routes');
 const staticRoutes = require('../routes/static-routes');
 
 module.exports = {
     initRoutes: (injector) => {
-        basicRoutes(injector);
+        exampleRoutes(injector);
         staticRoutes(injector);
     }
 };
