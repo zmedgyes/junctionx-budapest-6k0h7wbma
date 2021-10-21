@@ -7,9 +7,9 @@ module.exports = {
     getInjector: () => {
         const injector = new Injector();
 
-        injector.addConstant('redis', new Redis());
+        //injector.addConstant('redis', new Redis());
         //injector.addConstant('db', new Database());
-        injector.addConstant('app', express())
+        injector.addConstant('app', express());
 
         return injector;
     }
