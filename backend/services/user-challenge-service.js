@@ -1,5 +1,5 @@
 const { CHALLENGE_TYPES } = require('../misc/types');
-const { shuffleArray } = require('../misc/util');
+const { shuffleArray, isNearby } = require('../misc/util');
 const crypto = require('crypto');
 
 function _parseJSONFields(challenge) {
@@ -42,8 +42,24 @@ module.exports = class UserChallengeService {
             for(let userChallenge of userChallenges) {
                 const qr = this.getQRToTreasure(userChallenge.params.lat, userChallenge.params.lng);
                 if(qr === params.qr) {
-                    return { isValid: true, id: userChallenge.id };
+                    await this.deleteUserChallenge(userChallenge.id );
+                    return { isValid: true };
                 }
+            }
+        } else if (type === CHALLENGE_TYPES.RUSH) {
+            if(userChallenges.length > 0) {
+                const challenge = await this.challengeService.getChallengeByType(type);
+                const timeout = (challenge.params.duration / challenge.params.decline) * 60000;
+                const now = new Date().getTime();
+                for(let userChallenge of userChallenges) {
+                    const reached = timeout - (now - start);
+                    if(reached <= 0) {
+                        await this.deleteUserChallenge(userChallenge.id);
+                    } else if(isNearby(params.lat, params.lng, userChallenge.params.lat, userChallenge.params.lng, challenge.range)) {
+                        const points = challenge.points - (Math.floor(reached * rate / 60000));
+                        return { isValid: true, id: userChallenge.id, points };
+                    }
+                }      
             }
         }
         return { isValid: false };
@@ -55,6 +71,8 @@ module.exports = class UserChallengeService {
             for(let poi of pois) {
                 await this._addUserChallenge(userId, type, { lat: poi.geometry.coordinates[1], lng: poi.geometry.coordinates[0] })
             }
+        } else if (type === CHALLENGE_TYPES.RUSH) {
+            await this._addUserChallenge(userId, type, config);
         }
     }
 

@@ -3,6 +3,9 @@ module.exports = {
         GOTO: 'GOTO',
         TREASURE: 'TREASURE',
         SEARCH: 'SEARCH',
-        TUTORIAL: 'TUTORIAL'
-    }
+        TUTORIAL: 'TUTORIAL',
+        RUSH: 'RUSH',
+        RANDOM: 'RANDOM'
+    },
+    METER2DEG: 0.00001
 }
