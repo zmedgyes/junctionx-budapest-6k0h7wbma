@@ -1,3 +1,5 @@
+const { checkRole } = require("./auth-util");
+
 module.exports = class RouteHelper {
     static get $inject() { return ['app', 'injector']; }
     constructor(app, injector) {
@@ -5,7 +7,7 @@ module.exports = class RouteHelper {
         this.injector = injector;
     }
 
-    addRoute(method, route, controllerName, action) {
+    addRoute(method, route, controllerName, action, requiredRole) {
         const controller = this.injector.get(controllerName);
         if(typeof controller[action] !== 'function') {
             throw new Error(`${action} is not a member of ${controllerName}`);
@@ -14,11 +16,18 @@ module.exports = class RouteHelper {
         if (typeof this.app[methodName] !== 'function') {
             throw new Error(`${methodName} is not a member of the express app`);
         }
-
-        this.app[methodName](route, controller[action].bind(controller));
+        const routeHandler = (requiredRole) ? (req, res, next) => {
+            if (!checkRole(req.session, requiredRole)){
+                res.status(403).send('Unauthorized');
+                return;
+            }
+            controller[action](req, res, next);
+        } : controller[action].bind(controller);
+        
+        this.app[methodName](route, routeHandler);
     }
 
-    addAPIRoute(method, route, controllerName, action) {
-        this.addRoute(method, `/api${route}`, controllerName, action);
+    addAPIRoute(method, route, controllerName, action, requiredRole) {
+        this.addRoute(method, `/api${route}`, controllerName, action, requiredRole);
     }
 }
