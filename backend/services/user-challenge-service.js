@@ -50,7 +50,6 @@ module.exports = class UserChallengeService {
     }
 
     async createUserChallenges(userId, type, config) {
-        console.log(userId, type, config)
         if(type === CHALLENGE_TYPES.TREASURE) {
             const pois = await this._getTreasureChallengePOIs(type, config);
             for(let poi of pois) {

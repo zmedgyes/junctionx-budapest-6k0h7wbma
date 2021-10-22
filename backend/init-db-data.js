@@ -18,6 +18,11 @@ const { CHALLENGE_TYPES } = require('./misc/types');
             const challengeService = injector.get('challengeService');
             await challengeService.addChallenge(CHALLENGE_TYPES.GOTO, { radius: 0.01 });
             await challengeService.addChallenge(CHALLENGE_TYPES.TREASURE, { radius: 0.01, nodes: 10 });
+        },
+        async (injector) => {
+            const challengeService = injector.get('challengeService');
+            await challengeService.updateChallengeByType(CHALLENGE_TYPES.GOTO, { radius: 0.01, points: 100 });
+            await challengeService.updateChallengeByType(CHALLENGE_TYPES.TREASURE, { radius: 0.01, nodes: 10, points: 50 });
         }
     ];
 

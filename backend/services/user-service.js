@@ -1,6 +1,6 @@
 
 const { encryptPassword, USER_ROLES } = require('../misc/auth-util');
-const DEFAULT_USER_DATA = {};
+const DEFAULT_USER_DATA = { points: 0 };
 const DEFAULT_USER_ROLES = [USER_ROLES.USER];
 
 function _parseJSONFields(user) {
@@ -57,5 +57,19 @@ module.exports = class UserService {
 
     async deleteUser(userId) {
         await this.db.query(`DELETE FROM user WHERE user_id = ?`, [userId]);
+    }
+
+    async getPointsByUserId(userId) {
+        const user = await this.getUserById(userId);
+        return (user && user.data.points) || 0;
+    }
+
+    async addPointsByUserId(userId, diff = 0) {
+        const user = await this.getUserById(userId);
+        if(user) {
+            const points = (user.data.points || 0) + diff;
+            console.log(points);
+            await this.updateUserData(userId, Object.assign(user.data, { points }));
+        }
     }
 }
