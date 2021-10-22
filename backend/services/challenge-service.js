@@ -28,6 +28,10 @@ module.exports = class ChallengeService {
         await this.db.query('INSERT INTO challenge (type, params) VALUES(?,?)', [type, JSON.stringify(params)]);
     }
 
+    async updateChallengeByType(type, params = {}) {
+        await this.db.query('UPDATE challenge SET params = ? WHERE type = ?', [JSON.stringify(params), type]);
+    }
+
     async deleteChallenge(id) {
         await this.db.query('DELETE FROM challenge WHERE id = ?', [id]);
     }

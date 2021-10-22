@@ -26,4 +26,10 @@ module.exports = class UserController {
         const users = await this.userService.listUsers();
         res.json(users)
     }
+
+    async getPoints(req, res, next) {
+        const { user_id } = req.body;
+        const points = await this.userService.getPointsByUserId(user_id);
+        res.json({points})
+    }
 };

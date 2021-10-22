@@ -15,6 +15,7 @@ module.exports = {
         routeHelper.addAPIRoute('post', '/user/register', 'userController', 'addUser');
         routeHelper.addAPIRoute('post', '/user/delete', 'userController', 'deleteUser');
         routeHelper.addAPIRoute('get', '/user/list', 'userController', 'listUsers');
+        routeHelper.addAPIRoute('post', '/user/getPoints', 'userController', 'getPoints');
 
         routeHelper.addAPIRoute('post', '/user/challenge/list', 'userChallengeController', 'getUserChallengesByUserId');
         routeHelper.addAPIRoute('post', '/user/challenge/create', 'userChallengeController', 'createUserChallenges');
