@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Sample from '../views/Sample.vue'
+import GoogleMap from '../views/GoogleMap.vue'
 import NotFound from '../views/NotFound.vue'
 
 const routes = [
@@ -13,6 +14,11 @@ const routes = [
     path: '/sample',
     name: 'Sample',
     component: Sample
+  },
+  {
+    path: '/map',
+    name: 'GoogleMap',
+    component: GoogleMap
   },
   {
     path: '/:catchAll(.*)',
