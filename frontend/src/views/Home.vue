@@ -6,14 +6,9 @@
       </div>
       <div class="homeContent">
         <div class="cardRow">
-          <NetCard/>
-          <Card width="50%"><h1>Hi</h1></Card>
-          <Card width="50%"><h1>Hi</h1></Card>
-          <Card width="50%"><h1>Hi</h1></Card>
-          <Card width="50%"><h1>Hi</h1></Card>
-        </div>
-        <div class="cardRow">
-          <Card><h1>Hi</h1></Card>
+          <NetCard />
+          <BillCard />
+          <TopUpCard />
         </div>
       </div>
   </div>
@@ -23,10 +18,12 @@
 import VodaLogo from '../components/VodaLogo.vue'
 import Card from '../components/Card.vue'
 import NetCard from '../components/cards/NetCard.vue'
+import BillCard from '../components/cards/BillCard.vue'
+import TopUpCard from '../components/cards/TopUpCard.vue'
 
 export default {
     name: 'Home',
-    components: { VodaLogo, Card, NetCard }
+    components: { VodaLogo, Card, NetCard, BillCard, TopUpCard }
 }
 </script>
 <style scoped>
