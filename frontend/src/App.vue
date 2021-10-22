@@ -1,23 +1,8 @@
 <template>
-  <div id="nav">
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid mr-1r">
-    <a class="navbar-brand" href="#"><router-link :to="{name : 'Home' }"><img class="logo-img" src="@/assets/sample-logo.svg"></router-link></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
-      <ul class="navbar-nav ">
-        <li class="nav-item">
-          <router-link :to="{name : 'Sample' }" class="nav-link">Sample</router-link>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-  </div>
+<div class="appRoot">
   <router-view/>
   <Loader v-if="isLoaderOn"/>
+  </div>
 </template>
 
 
@@ -36,6 +21,44 @@ export default {
 </script>
 
 <style>
+:root {
+  --brand-gradient: linear-gradient(301deg, rgb(230, 0, 0), rgb(130, 0, 0));
+  --brand-color: #e60000;
+  --brand-paper: #f4f4f4;
+  --brand-black: #333333;
+  --brand-white: #fff;
+}
+
+html > body {
+  font-family: 'Vodafone';
+  background: var(--brand-paper);
+  color: var(--brand-black);
+}
+
+@font-face {
+  font-family: 'Vodafone';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/fonts/vodafone-regular.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Vodafone';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(/fonts/vodafone-bold.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Vodafone';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(/fonts/vodafone-light.woff) format('woff');
+}
+
 .logo-img{
     height: 40px;
 }
