@@ -2,6 +2,7 @@
     <QRScan v-if="!QRclosed" @closeQR="onCloseQR" />
     <GoogleMapLoader ref="mapLoader" :userId="userId"/>
     <button @click="$refs.mapLoader.removeMarker(2)">Remove second marker</button>
+    <button @click="QRclosed=false">Open</button>
     <router-link tag="button" :to="{name : 'Home'}">Home</router-link>
 </template>
 
@@ -17,7 +18,7 @@ export default {
     data(){
         return{
             userId: 1,
-            QRclosed: false
+            QRclosed: true
         }
     },
     methods: {
