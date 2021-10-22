@@ -14,7 +14,7 @@
           Discovery
         </h2>
         <div class="cardRow">
-          <MapCard />
+          <router-link tag="button" :to="{name : 'GoogleMap'}"><MapCard /></router-link>
         </div>
       </div>
   </div>
