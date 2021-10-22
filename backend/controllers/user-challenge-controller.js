@@ -25,11 +25,10 @@ module.exports = class UserChallengeController {
 
     async verifyUserChallenge(req, res, next) {
         const { user_id, type, params } = req.body;
-        const  { isValid, id } = await this.userChallengeService.verifyChallenge(user_id, type, params);
+        const  { isValid } = await this.userChallengeService.verifyChallenge(user_id, type, params);
         if(isValid) {
             const challenge = await this.challengeService.getChallengeByType(type);
             await this.userService.addPointsByUserId(user_id, challenge.params.points);
-            await this.userChallengeService.deleteUserChallenge(id);
             res.json({ success: true, points: challenge.params.points });
             return;
         }
@@ -41,5 +40,15 @@ module.exports = class UserChallengeController {
         const userChallenge = await this.userChallengeService.getUserChallengeById(id);
         const qr = this.userChallengeService.getQRToTreasure(userChallenge.params.lat, userChallenge.params.lng);
         res.json({ qr });
+    }
+
+    async startRush(req, res, next) {
+        const { lat, lng } = req.body;
+        const start = new Date().getTime();
+        const config = { lat, lng, start }; 
+        const users = await this.userService.listUsers();
+        for(let user of users) {
+           await this.userChallengeService.createUserChallenges(user.user_id, type, config);
+        }
     }
 }
