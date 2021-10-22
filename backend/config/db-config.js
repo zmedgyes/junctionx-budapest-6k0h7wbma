@@ -28,20 +28,19 @@ module.exports = {
 
         
         // CHALLENGE
-        // await db.query(`DROP TABLE IF EXISTS challenge`);
+        //await db.query(`DROP TABLE IF EXISTS challenge`);
         await db.query(`CREATE TABLE IF NOT EXISTS challenge (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                type TEXT NOT NULL,
-                name TEXT NOT NULL UNIQUE,
+                type TEXT NOT NULL UNIQUE,
                 params JSON NOT NULL
             )`);
 
 
-        // await db.query(`DROP TABLE IF EXISTS user_challenge`);
+        //await db.query(`DROP TABLE IF EXISTS user_challenge`);
         await db.query(`CREATE TABLE IF NOT EXISTS user_challenge (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 user_id INTEGER NOT NULL,
-                challenge_id NOT NULL,
+                challenge_type TEXT NOT NULL,
                 params JSON NOT NULL
             )`);
     }
