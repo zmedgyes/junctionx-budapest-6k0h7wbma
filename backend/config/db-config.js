@@ -3,18 +3,21 @@ module.exports = {
         const db = injector.get('db');
 
         // MIGARTION
+        // await db.query(`DROP TABLE IF EXISTS db_migration`);
         await db.query(`CREATE TABLE IF NOT EXISTS db_migration (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 key TEXT NOT NULL UNIQUE
             )`);
         
         // EXAMPLE
+        // await db.query(`DROP TABLE IF EXISTS example`);
         await db.query(`CREATE TABLE IF NOT EXISTS example (
                 example_id INTEGER PRIMARY KEY AUTOINCREMENT,
                 value TEXT NOT NULL
             )`);
 
         // USER
+        // await db.query(`DROP TABLE IF EXISTS user`);
         await db.query(`CREATE TABLE IF NOT EXISTS user (
                 user_id INTEGER PRIMARY KEY AUTOINCREMENT,
                 email TEXT NOT NULL,
@@ -25,16 +28,20 @@ module.exports = {
 
         
         // CHALLENGE
-        await db.query(`CREATE TABLE IF NOT EXISTS challenge_type (
+        // await db.query(`DROP TABLE IF EXISTS challenge`);
+        await db.query(`CREATE TABLE IF NOT EXISTS challenge (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                name TEXT NOT NULL,
+                type TEXT NOT NULL,
+                name TEXT NOT NULL UNIQUE,
                 params JSON NOT NULL
             )`);
 
+
+        // await db.query(`DROP TABLE IF EXISTS user_challenge`);
         await db.query(`CREATE TABLE IF NOT EXISTS user_challenge (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 user_id INTEGER NOT NULL,
-                challenge_type_id NOT NULL,
+                challenge_id NOT NULL,
                 params JSON NOT NULL
             )`);
     }
