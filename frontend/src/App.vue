@@ -2,16 +2,18 @@
 <div class="appRoot">
   <router-view/>
   <Loader v-if="isLoaderOn"/>
+  <BottomMenu v-if="!isLoaderOn" />
   </div>
 </template>
 
 
 <script>
 import Loader from './components/Loader.vue'
+import BottomMenu from './components/BottomMenu.vue'
 
 export default {
     name: 'App',
-    components : { Loader },
+    components : { Loader, BottomMenu },
     computed:{
       isLoaderOn(){
         return this.$store.state.isLoaderOn;
@@ -34,6 +36,7 @@ html > body {
   font-family: 'Vodafone';
   background: var(--brand-paper);
   color: var(--brand-black);
+  margin-bottom: 75px;
 }
 
 @font-face {
