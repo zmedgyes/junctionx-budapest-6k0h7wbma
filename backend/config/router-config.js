@@ -20,6 +20,10 @@ module.exports = {
         // routeHelper.addAPIRoute('post', '/auth/login', 'authController', 'login');
         // routeHelper.addAPIRoute('post', '/auth/logout', 'authController', 'logout');
 
+        // MAP
+        routeHelper.addAPIRoute('post', '/map/listPOIs', 'poiController', 'listPOIs');
+        routeHelper.addAPIRoute('post', '/map/getRandomPOI', 'poiController', 'getRandomPOI');
+
         // FRONTEND
         const app = injector.get('app');
         const frontendPath = path.resolve(`${__dirname}/../../frontend/dist`);

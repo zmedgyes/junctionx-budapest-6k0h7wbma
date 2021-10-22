@@ -5,14 +5,9 @@ module.exports = class ExampleController {
         this.exampleService = exampleService;
     }
 
-    getExamples(req, res, next) {
-        this.exampleService.addExample(new Date().getTime())
-            .then(() => this.exampleService.getExamples())
-            .then((data) => {
-                res.json({ data });
-            })
-            .catch((err) => {
-                next(err);
-            });
+    async getExamples(req, res, next) {
+        await this.exampleService.addExample(new Date().getTime())
+        const data = await this.exampleService.getExamples();
+        res.json({ data });
     }
 }
