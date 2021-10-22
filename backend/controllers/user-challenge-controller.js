@@ -10,16 +10,8 @@ module.exports = class UserChallengeController {
 
     async createUserChallenges(req, res, next) {
         // const user_id = req.session.user.user_id;
-        const { user_id, challenge_id, config } = req.body;
-        await this.userChallengeService.createUserChallenges(user_id, challenge_id, config);
-        res.json({ success: true });
-    }
-
-    async createUserChallengesByType(req, res, next) {
-        // const user_id = req.session.user.user_id;
         const { user_id, type, config } = req.body;
-        const challenges = await this.challengeService.getChallengesByType(type);
-        await this.userChallengeService.createUserChallenges(user_id, challenges[0].id, config);
+        await this.userChallengeService.createUserChallenges(user_id, type, config);
         res.json({ success: true });
     }
 
@@ -31,8 +23,8 @@ module.exports = class UserChallengeController {
     }
 
     async verifyUserChallenge(req, res, next) {
-        const { id, params } = req.body;
-        const isValid = await this.userChallengeService.verifyChallenge(id, params);
+        const { user_id, type, params } = req.body;
+        const  { isValid, id } = await this.userChallengeService.verifyChallenge(user_id, type, params);
         if(isValid) {
             await this.userChallengeService.deleteUserChallenge(id);
         }
@@ -41,8 +33,7 @@ module.exports = class UserChallengeController {
 
     async getTreasureQR(req, res, next) {
         const { id } = req.body;
-        const userChallenge = await this.userChallengeService.getUserChallengesById(id);
-        console.log(userChallenge);
+        const userChallenge = await this.userChallengeService.getUserChallengeById(id);
         const qr = this.userChallengeService.getQRToTreasure(userChallenge.params.lat, userChallenge.params.lng);
         console.log(qr);
         res.json({ qr });

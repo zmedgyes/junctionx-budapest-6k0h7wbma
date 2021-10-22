@@ -5,15 +5,15 @@ module.exports = class ChallengeController {
         this.challengeService = challengeService;
     }
 
-    async getChallengesByType(req, res, next) {
+    async getChallengeByType(req, res, next) {
         const { type } = req.body;
-        const challenges = await this.challengeService.getChallengesByType(type);
-        res.json(challenges);
+        const challenge = await this.challengeService.getChallengeByType(type);
+        res.json(challenge);
     }
 
     async addChallenge(req, res, next) {
-        const { type, name, params } = req.body;
-        await this.challengeService.addChallenge(type, name, params);
+        const { type, params } = req.body;
+        await this.challengeService.addChallenge(type, params);
         res.json({ success: true });
     }
 
