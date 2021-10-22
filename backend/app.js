@@ -1,8 +1,12 @@
 const { getInjector } = require('./config/injector-config');
+const { initDB } = require('./config/db-config');
 const { initMiddlewares } = require('./config/middleware-config');
 const { initApp } = require('./config/app-config');
 
-const injector = getInjector();
+(async () => {
+    const injector = getInjector();
 
-initMiddlewares(injector);
-initApp(injector);
+    initMiddlewares(injector);
+    await initDB(injector);
+    initApp(injector);
+})();
