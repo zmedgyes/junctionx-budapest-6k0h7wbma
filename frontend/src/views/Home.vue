@@ -10,6 +10,12 @@
           <BillCard />
           <TopUpCard />
         </div>
+        <h2>
+          Discovery
+        </h2>
+        <div class="cardRow">
+          <MapCard />
+        </div>
       </div>
   </div>
 </template>
@@ -20,10 +26,11 @@ import Card from '../components/Card.vue'
 import NetCard from '../components/cards/NetCard.vue'
 import BillCard from '../components/cards/BillCard.vue'
 import TopUpCard from '../components/cards/TopUpCard.vue'
+import MapCard from '../components/cards/MapCard.vue'
 
 export default {
     name: 'Home',
-    components: { VodaLogo, Card, NetCard, BillCard, TopUpCard }
+    components: { VodaLogo, Card, NetCard, BillCard, TopUpCard, MapCard }
 }
 </script>
 <style scoped>
@@ -42,6 +49,11 @@ export default {
     align-items: center;
     padding: 5px 20px;
     font-size: 20px;
+}
+
+h2 {
+  font-weight: bold;
+  margin-left: 6px;
 }
 </style>
 

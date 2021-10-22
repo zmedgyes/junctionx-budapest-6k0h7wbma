@@ -1,11 +1,7 @@
 <template>
-  <Card>
-    <div class="cardTitle"><img src="/img/arrow.svg"/> Net</div>
+  <Card class="mapCard">
     <div class="cardContent">
-      <div><span class="big">30.5 GB </span><span>of the 50 GB left</span></div>
-      <div class="progress">
-      <div class="progress-bar" role="progressbar" style="width: 40%"></div>
-      </div>
+      <div class="bigdiv"><span class="big">Open map game</span></div>
     </div>
   </Card>
 </template>
@@ -20,8 +16,12 @@ export default {
 
 
 <style scoped>
-  .cardTitle {
-    
+  .mapCard >>> div {
+    background: var(--brand-gradient);
+  }
+  .bigdiv {
+    padding-left: 10px;
+    padding-top: 15px;
   }
   .cardTitle img {
     height: 18px;
@@ -29,6 +29,8 @@ export default {
   }
   .cardContent {
     font-size: 25px;
+    color: var(--brand-white);
+    min-height: 140px;
   }
   .cardContent .big {
     font-size: 35px;
