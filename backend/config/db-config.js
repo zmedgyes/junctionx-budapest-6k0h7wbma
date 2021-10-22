@@ -1,6 +1,12 @@
 module.exports = { 
     initDB: async (injector) => {
         const db = injector.get('db');
+
+        // MIGARTION
+        await db.query(`CREATE TABLE IF NOT EXISTS db_migration (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                key TEXT NOT NULL UNIQUE
+            )`);
         
         // EXAMPLE
         await db.query(`CREATE TABLE IF NOT EXISTS example (
