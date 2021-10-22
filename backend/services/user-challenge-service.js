@@ -25,41 +25,48 @@ module.exports = class UserChallengeService {
         return userChallenges.map(_parseJSONFields);
     }
 
-    async getUserChallengesById(userChallengeId) {
+    async getUserChallengesByUserIdAndType(userId, type) {
+        const userChallenges = await this.db.query('SELECT * FROM user_challenge WHERE user_id = ? AND challenge_type = ?', [userId, type]);
+        return userChallenges.map(_parseJSONFields);
+    }
+
+    async getUserChallengeById(userChallengeId) {
         const userChallenges = await this.db.query('SELECT * FROM user_challenge WHERE id = ?', [userChallengeId]);
         return _parseJSONFields(userChallenges[0]);
     }
 
-    async verifyChallenge(userChallengeId, params) {
-        const userChallenge = await this.getUserChallengesById(userChallengeId);
-        if(!userChallenge) {
-            return false;
-        }
+    async verifyChallenge(userId, type, params) {
+        const userChallenges = await this.getUserChallengesByUserIdAndType(userId, type);
 
-        const challenge = await this.challengeService.getChallengeById(challengeId);
-
-        if (challenge.type === CHALLENGE_TYPES.TREASURE) {
-            const qr = this.getQRToTreasure(userChallenge.params.lat, userChallenge.params.lng);
-            return qr === params.qr;
+        if (type === CHALLENGE_TYPES.TREASURE) {
+            for(let userChallenge of userChallenges) {
+                const qr = this.getQRToTreasure(userChallenge.params.lat, userChallenge.params.lng);
+                if(qr === params.qr) {
+                    return { isValid: true, id: userChallenge.id };
+                }
+            }
         }
-        return false;
+        return { isValid: false };
     }
 
-    async createUserChallenges(userId, challengeId, config) {
-        const challenge = await this.challengeService.getChallengeById(challengeId);
-        if(challenge.type === CHALLENGE_TYPES.TREASURE) {
-            const pois = await this._getTreasureChallengePOIs(challenge, config);
+    async createUserChallenges(userId, type, config) {
+        console.log(userId, type, config)
+        if(type === CHALLENGE_TYPES.TREASURE) {
+            console.log('createbytype')
+            const pois = await this._getTreasureChallengePOIs(type, config);
+            console.log()
             for(let poi of pois) {
-                await this._addUserChallenge(userId, challengeId, { lat: poi.geometry.coordinates[1], lng: poi.geometry.coordinates[0] })
+                await this._addUserChallenge(userId, type, { lat: poi.geometry.coordinates[1], lng: poi.geometry.coordinates[0] })
             }
         }
     }
 
-    async _addUserChallenge(userId, challengeId, params){
-        await this.db.query('INSERT INTO user_challenge (user_id, challenge_id, params) VALUES (?,?,?)', [userId, challengeId, JSON.stringify(params)])
+    async _addUserChallenge(userId, type, params){
+        await this.db.query('INSERT INTO user_challenge (user_id, challenge_type, params) VALUES (?,?,?)', [userId, type, JSON.stringify(params)])
     }
 
-    async _getTreasureChallengePOIs(challenge, config) {
+    async _getTreasureChallengePOIs(type, config) {
+        const challenge = await this.challengeService.getChallengeByType(type);
         const pois = await this.overpassService.listPOIs(config.lat, config.lng, config.radius);
         shuffleArray(pois);
         return pois.slice(0, challenge.params.nodes);
