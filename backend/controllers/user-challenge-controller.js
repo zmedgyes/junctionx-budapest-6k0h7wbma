@@ -1,14 +1,25 @@
-module.exports = class UserChallengeController {
-    static get $inject() { return ['userChallengeService']; };
+const { CHALLENGE_TYPES } = require("../misc/types");
 
-    constructor(userChallengeService) {
+module.exports = class UserChallengeController {
+    static get $inject() { return ['userChallengeService', 'challengeService']; };
+
+    constructor(userChallengeService, challengeService) {
         this.userChallengeService = userChallengeService;
+        this.challengeService = challengeService;
     }
 
     async createUserChallenges(req, res, next) {
         // const user_id = req.session.user.user_id;
         const { user_id, challenge_id, config } = req.body;
         await this.userChallengeService.createUserChallenges(user_id, challenge_id, config);
+        res.json({ success: true });
+    }
+
+    async createUserChallengesByType(req, res, next) {
+        // const user_id = req.session.user.user_id;
+        const { user_id, type, config } = req.body;
+        const challenges = await this.challengeService.getChallengesByType(type);
+        await this.userChallengeService.createUserChallenges(user_id, challenges[0].id, config);
         res.json({ success: true });
     }
 

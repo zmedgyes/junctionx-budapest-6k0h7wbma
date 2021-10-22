@@ -18,6 +18,7 @@ module.exports = {
 
         routeHelper.addAPIRoute('post', '/user/challenge/list', 'userChallengeController', 'getUserChallengesByUserId');
         routeHelper.addAPIRoute('post', '/user/challenge/create', 'userChallengeController', 'createUserChallenges');
+        routeHelper.addAPIRoute('post', '/user/challenge/createByType', 'userChallengeController', 'createUserChallengesByType');
         routeHelper.addAPIRoute('post', '/user/challenge/verify', 'userChallengeController', 'verifyUserChallenge');
 
         routeHelper.addAPIRoute('post', '/admin/getTreasureQR', 'userChallengeController', 'getTreasureQR');
