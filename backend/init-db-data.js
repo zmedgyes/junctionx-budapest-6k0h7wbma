@@ -1,6 +1,7 @@
 const { getInjector } = require('./config/injector-config');
 const { initDB } = require('./config/db-config');
 const { USER_ROLES } = require('./misc/auth-util');
+const { CHALLENGE_TYPES } = require('./misc/types');
 
 (async () => {
     const injector = getInjector();
@@ -12,6 +13,11 @@ const { USER_ROLES } = require('./misc/auth-util');
             await userService.addUser('admin@admin.com', 'admin');
             const adminUser = await userService.getUserWithPasswordByEmail('admin@admin.com');
             await userService.updateUserRoles(adminUser.user_id, [USER_ROLES.USER, USER_ROLES.ADMIN]);
+        },
+        async (injector) => {
+            const challengeService = injector.get('challengeService');
+            await challengeService.addChallenge(CHALLENGE_TYPES.GOTO, 'Basic Go-To challenge', { radius: 0.01 });
+            await challengeService.addChallenge(CHALLENGE_TYPES.TREASURE, 'Basic TreasureHunt challenge', { radius: 0.01, nodes: 10 });
         }
     ];
 

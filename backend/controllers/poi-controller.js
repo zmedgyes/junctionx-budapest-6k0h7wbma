@@ -7,14 +7,14 @@ module.exports = class POIController {
     }
 
     async listPOIs(req, res, next) {
-        const { lat, lng } = req.body;
-        const pois = await this.overpassService.listPOIs(lat, lng);
+        const { lat, lng, radius } = req.body;
+        const pois = await this.overpassService.listPOIs(lat, lng, radius);
         res.json(pois);
     }
 
     async getRandomPOI(req, res, next) {
-        const { lat, lng } = req.body;
-        const pois = await this.overpassService.listPOIs(lat, lng);
+        const { lat, lng, radius } = req.body;
+        const pois = await this.overpassService.listPOIs(lat, lng, radius);
         if (pois.length > 0) {
             const randomPOI = pois[getRandomNumber(pois.length)];
             res.json({ lat: randomPOI.geometry.coordinates[1], lng: randomPOI.geometry.coordinates[0]});

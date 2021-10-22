@@ -16,13 +16,26 @@ module.exports = {
         routeHelper.addAPIRoute('post', '/user/delete', 'userController', 'deleteUser');
         routeHelper.addAPIRoute('get', '/user/list', 'userController', 'listUsers');
 
+        routeHelper.addAPIRoute('post', '/user/challenge/list', 'userChallengeController', 'getUserChallengesByUserId');
+        routeHelper.addAPIRoute('post', '/user/challenge/create', 'userChallengeController', 'createUserChallenges');
+        routeHelper.addAPIRoute('post', '/user/challenge/verify', 'userChallengeController', 'verifyUserChallenge');
+
+        routeHelper.addAPIRoute('post', '/admin/getTreasureQR', 'userChallengeController', 'getTreasureQR');
+
+
+
         // AUTH
         // routeHelper.addAPIRoute('post', '/auth/login', 'authController', 'login');
         // routeHelper.addAPIRoute('post', '/auth/logout', 'authController', 'logout');
 
         // MAP
-        routeHelper.addAPIRoute('post', '/map/listPOIs', 'poiController', 'listPOIs');
-        routeHelper.addAPIRoute('post', '/map/getRandomPOI', 'poiController', 'getRandomPOI');
+        routeHelper.addAPIRoute('post', '/poi/list', 'poiController', 'listPOIs');
+        routeHelper.addAPIRoute('post', '/poi/getRandom', 'poiController', 'getRandomPOI');
+
+        // CHALLENGE
+        routeHelper.addAPIRoute('post', '/challenge/getByType', 'challengeController', 'getChallengesByType');
+        routeHelper.addAPIRoute('post', '/challenge/add', 'challengeController', 'addChallenge');
+        routeHelper.addAPIRoute('post', '/challenge/delete', 'challengeController', 'deleteChallenge');
 
         // FRONTEND
         const app = injector.get('app');
