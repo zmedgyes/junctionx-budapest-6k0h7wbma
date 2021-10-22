@@ -9,11 +9,6 @@ module.exports = class ExampleService {
     }
 
     async addExample(example) {
-        return this.db.query(`CREATE TABLE IF NOT EXISTS example (
-	        example_id INTEGER PRIMARY KEY AUTOINCREMENT,
-            value TEXT NOT NULL
-        )`).then(() => {
-            return this.db.query(`INSERT INTO example (value) VALUES ('${example}')`);
-        });
+        return this.db.query(`INSERT INTO example (value) VALUES ('${example}')`);
     }
 }
