@@ -26,6 +26,7 @@ export default {
   .cardTitle img {
     height: 18px;
     width: 18px;
+    margin-bottom: 4px;
   }
   .cardContent {
     font-size: 25px;

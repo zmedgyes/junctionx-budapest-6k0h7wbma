@@ -1,6 +1,6 @@
 <template>
   <Card width="50%">
-    <div class="cardTitle"><img src="/img/arrow.svg"/> Topup</div>
+    <div class="cardTitle"><img src="/img/topup.svg"/> Topup</div>
     <div class="cardContent">
       <div class="mybills">Add to balance</div>
     </div>
@@ -21,8 +21,8 @@ export default {
     
   }
   .cardTitle img {
-    height: 12px;
-    width: 12px;
+    height: 18px;
+    width: 18px;
   }
   .cardContent {
     font-size: 25px;
