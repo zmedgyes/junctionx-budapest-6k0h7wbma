@@ -28,7 +28,30 @@ export default {
         markers:{}
     }
   },
-
+    watch: {
+        initialMarkers: {
+            handler(newMarkersInfo,recentMarkersInfo){
+                if (newMarkersInfo.length != recentMarkersInfo.length) {
+                    let matchFound;
+                    for (const [key, value] of Object.entries(this.markers)) {
+                        matchFound = false;
+                        for (let i = 0; i < newMarkersInfo.length; i++) {
+                            if (key == newMarkersInfo[i].id) {
+                                matchFound = true;
+                                break
+                            }
+                        }
+                        if (!matchFound) {
+                            this.markers[key].markerElement.setVisible(false)
+                            this.markers[key].markerElement = null;
+                            break;
+                        }
+                    }
+                }
+            },
+            deep: true
+        }
+    },
   async mounted() {
     const googleMapApi = await GoogleMapsApiLoader({
       apiKey: this.apiKey
@@ -69,6 +92,7 @@ export default {
 
         //Így lehet markert törölni a térképről
         // this.markers[2].markerElement.setMap(null)
+        // this.markers[2].markerElement.setVisible(false)
         // this.markers[<marker id-ja>].markerElement.setMap(null)
     }
   }
