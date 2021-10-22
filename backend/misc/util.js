@@ -15,6 +15,7 @@ module.exports = {
     },
 
     isNearby: (posLat, posLng, origLat, origLng, range) => {
-        return (Math.abs(posLat - origLat) < rangeDeg * METER2DEG) && (Math.abs(posLng - origLng) < range * METER2DEG)
+        const rangeDeg = range * METER2DEG;
+        return (Math.abs(posLat - origLat) < rangeDeg) && (Math.abs(posLng - origLng) < rangeDeg);
     }
 }

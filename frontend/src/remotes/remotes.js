@@ -36,3 +36,7 @@ export async function listShopItems() {
 export async function buyShopItem(userId, itemId) {
     return postData('/shop/buyItem', { user_id: userId, item_id: itemId});
 }
+
+export async function poll(userId, lat, lng) {
+    return postData('/poll', { user_id: userId, lat, lng });
+}
