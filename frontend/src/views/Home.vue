@@ -5,7 +5,6 @@
         <div>Welcome back, XYZ!</div>
       </div>
       <div class="homeContent">
-        <QRScan />
         <div class="cardRow">
           <NetCard />
           <BillCard />
@@ -28,11 +27,10 @@ import NetCard from '../components/cards/NetCard.vue'
 import BillCard from '../components/cards/BillCard.vue'
 import TopUpCard from '../components/cards/TopUpCard.vue'
 import MapCard from '../components/cards/MapCard.vue'
-import QRScan from '../components/QRScan.vue'
 
 export default {
     name: 'Home',
-    components: { VodaLogo, Card, NetCard, BillCard, TopUpCard, MapCard, QRScan }
+    components: { VodaLogo, Card, NetCard, BillCard, TopUpCard, MapCard }
 }
 </script>
 <style scoped>
