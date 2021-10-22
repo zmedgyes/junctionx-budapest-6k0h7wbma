@@ -18,7 +18,6 @@ module.exports = {
 
         routeHelper.addAPIRoute('post', '/user/challenge/list', 'userChallengeController', 'getUserChallengesByUserId');
         routeHelper.addAPIRoute('post', '/user/challenge/create', 'userChallengeController', 'createUserChallenges');
-        routeHelper.addAPIRoute('post', '/user/challenge/createByType', 'userChallengeController', 'createUserChallengesByType');
         routeHelper.addAPIRoute('post', '/user/challenge/verify', 'userChallengeController', 'verifyUserChallenge');
 
         routeHelper.addAPIRoute('post', '/admin/getTreasureQR', 'userChallengeController', 'getTreasureQR');
@@ -34,7 +33,7 @@ module.exports = {
         routeHelper.addAPIRoute('post', '/poi/getRandom', 'poiController', 'getRandomPOI');
 
         // CHALLENGE
-        routeHelper.addAPIRoute('post', '/challenge/getByType', 'challengeController', 'getChallengesByType');
+        routeHelper.addAPIRoute('post', '/challenge/getByType', 'challengeController', 'getChallengeByType');
         routeHelper.addAPIRoute('post', '/challenge/add', 'challengeController', 'addChallenge');
         routeHelper.addAPIRoute('post', '/challenge/delete', 'challengeController', 'deleteChallenge');
 
