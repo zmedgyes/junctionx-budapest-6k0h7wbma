@@ -52,9 +52,7 @@ module.exports = class UserChallengeService {
     async createUserChallenges(userId, type, config) {
         console.log(userId, type, config)
         if(type === CHALLENGE_TYPES.TREASURE) {
-            console.log('createbytype')
             const pois = await this._getTreasureChallengePOIs(type, config);
-            console.log()
             for(let poi of pois) {
                 await this._addUserChallenge(userId, type, { lat: poi.geometry.coordinates[1], lng: poi.geometry.coordinates[0] })
             }

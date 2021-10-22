@@ -5,12 +5,15 @@
     :initialMarkers="markers"
     />
     <button @click="removeMarker(2)">Remove second marker</button>
+    <button @click="getChallangeList()">Get challange list</button>
+    <router-link tag="button" :to="{name : 'Home'}">Home</router-link>
 </template>
 
 <script>
 import GoogleMapLoader from '../components/GoogleMapLoader.vue'
 import mapDefaultConfig from "../constants/mapConfig"
 import { googleApiKey } from "../config/index"
+import { listChallenges } from "../remotes/remotes"
 
 export default {
     name: 'GoogleMap',
@@ -33,6 +36,10 @@ export default {
         removeMarker(markerId){
             this.markers = this.markers.filter(marker => marker.id != markerId)
         },
+        async getChallangeList(){
+            let result = await listChallenges(1)
+            console.log(result)
+        }
     },
 
 }
