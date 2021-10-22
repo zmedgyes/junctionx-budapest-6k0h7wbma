@@ -51,6 +51,10 @@ module.exports = class UserService {
         await this.db.query(`UPDATE user SET data = ? WHERE user_id = ?`, [JSON.stringify(data), userId]);
     }
 
+    async updateUserRoles(userId, roles) {
+        await this.db.query(`UPDATE user SET roles = ? WHERE user_id = ?`, [JSON.stringify(roles), userId]);
+    }
+
     async deleteUser(userId) {
         await this.db.query(`DELETE FROM user WHERE user_id = ?`, [userId]);
     }
