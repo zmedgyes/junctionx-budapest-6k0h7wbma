@@ -5,8 +5,14 @@ module.exports = class ExampleController {
         this.exampleService = exampleService;
     }
 
-    getExample(req, res) {
-        const data = this.exampleService.getExample();
-        res.json({ data });
+    getExamples(req, res) {
+        this.exampleService.addExample(new Date().getTime())
+            .then(() => this.exampleService.getExamples())
+            .then((data) => {
+                res.json({ data });
+            })
+            .catch((err) => {
+                res.status(500).send(err);
+            });
     }
 }
