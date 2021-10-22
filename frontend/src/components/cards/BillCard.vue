@@ -1,6 +1,6 @@
 <template>
   <Card width="50%">
-    <div class="cardTitle"><img src="/img/arrow.svg"/> Next Bill</div>
+    <div class="cardTitle"><img src="/img/bills.svg"/> Next Bill</div>
     <div class="cardContent">
       <div class="mybills">My bills amount</div>
       <div><span class="big">30 000</span> <span class="bigish">Ft</span></div>
@@ -19,12 +19,10 @@ export default {
 
 
 <style scoped>
-  .cardTitle {
-    
-  }
   .cardTitle img {
-    height: 12px;
-    width: 12px;
+    height: 18px;
+    width: 18px;
+    margin-bottom: 5px;
   }
   .cardContent {
     font-size: 25px;

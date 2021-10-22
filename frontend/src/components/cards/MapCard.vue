@@ -22,6 +22,7 @@ export default {
   .bigdiv {
     padding-left: 10px;
     padding-top: 15px;
+    background: transparent !important;
   }
   .cardTitle img {
     height: 18px;

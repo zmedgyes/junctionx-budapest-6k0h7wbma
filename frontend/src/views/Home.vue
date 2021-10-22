@@ -53,7 +53,7 @@ export default {
 
 h2 {
   font-weight: bold;
-  margin-left: 6px;
+  margin: 6px 0px 0px 6px;
 }
 </style>
 

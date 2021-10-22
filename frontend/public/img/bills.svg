@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;stroke:#000000;stroke-width:25;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st1{fill:none;stroke:#000000;stroke-width:25;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st2{fill:#E60000;}
+	.st3{fill:#FFFFFF;}
+	.st4{fill:#FFFFFF;stroke:#000000;stroke-width:25;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st5{fill:#FFFFFF;stroke:#000000;stroke-width:25;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+</style>
+<g id="Layer_1">
+</g>
+<g id="Layer_2">
+	<path class="st1" d="M350,481H144c-6.6,0-12-5.4-12-12V143c0-6.6,5.4-12,12-12h206c6.6,0,12,5.4,12,12v326
+		C362,475.6,356.6,481,350,481z"/>
+	<line class="st0" x1="186" y1="289" x2="211" y2="289"/>
+	<line class="st0" x1="251" y1="289.5" x2="301" y2="289.5"/>
+	<line class="st0" x1="251.5" y1="339.5" x2="301.5" y2="339.5"/>
+	<line class="st0" x1="252" y1="389.5" x2="302" y2="389.5"/>
+	<line class="st0" x1="186" y1="339" x2="211" y2="339"/>
+	<line class="st0" x1="186" y1="389" x2="211" y2="389"/>
+	<circle class="st2" cx="363.5" cy="147.9" r="130"/>
+	<g>
+		<path class="st3" d="M392.9,198.7H367v-76l-21.3,13l-11.5-17.5L369.2,97h23.7V198.7z"/>
+	</g>
+</g>
+<g id="Layer_3">
+</g>
+</svg>
