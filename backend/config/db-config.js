@@ -22,5 +22,20 @@ module.exports = {
                 roles JSON NOT NULL,
                 data JSON NOT NULL
             )`);
+
+        
+        // CHALLENGE
+        await db.query(`CREATE TABLE IF NOT EXISTS challenge_type (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL,
+                params JSON NOT NULL
+            )`);
+
+        await db.query(`CREATE TABLE IF NOT EXISTS user_challenge (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER NOT NULL,
+                challenge_type_id NOT NULL,
+                params JSON NOT NULL
+            )`);
     }
 };
