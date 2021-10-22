@@ -13,11 +13,13 @@
 <script>
 import GoogleMapsApiLoader from 'google-maps-api-loader'
 import MarkerIcons from "../constants/svgMarkers"
+import mapConfig from "../constants/mapConfig"
+import { googleApiKey } from "../config/index"
+import { listChallenges } from "../remotes/remotes"
+import { createTreasueChallenges } from "../remotes/remotes"
 export default {
   props: {
-    mapConfig: Object,
-    apiKey: String,
-    initialMarkers: Array
+    userId:Number
   },
 
   data() {
@@ -25,36 +27,17 @@ export default {
         google: null,
         map: null,
         MarkerIcons,
-        markers:{}
+        mapConfig,
+        googleApiKey,
+        markers:{},
+        initialMarkers:[],
+        userCurrentPosition:{"lat":47.497913,"lng":19.040236},
     }
   },
-    watch: {
-        initialMarkers: {
-            handler(newMarkersInfo,recentMarkersInfo){
-                if (newMarkersInfo.length != recentMarkersInfo.length) {
-                    let matchFound;
-                    for (const [key, value] of Object.entries(this.markers)) {
-                        matchFound = false;
-                        for (let i = 0; i < newMarkersInfo.length; i++) {
-                            if (key == newMarkersInfo[i].id) {
-                                matchFound = true;
-                                break
-                            }
-                        }
-                        if (!matchFound) {
-                            this.markers[key].markerElement.setVisible(false)
-                            this.markers[key].markerElement = null;
-                            break;
-                        }
-                    }
-                }
-            },
-            deep: true
-        }
-    },
   async mounted() {
+     await this.setInitialMarkers()
     const googleMapApi = await GoogleMapsApiLoader({
-      apiKey: this.apiKey
+      apiKey: this.googleApiKey
     })
     this.google = googleMapApi
     this.initializeMap()
@@ -63,6 +46,12 @@ export default {
   methods: {
     initializeMap() {
         const mapContainer = this.$refs.googleMap
+        const youAreHereMarker = this.initialMarkers.find(marker => marker.type == "you-are-here")
+        let mapCenter = youAreHereMarker ? youAreHereMarker.position : this.initialMarkers[0].position
+        if (mapCenter) {
+            this.mapConfig.center = mapCenter
+        }
+        
         this.map = new this.google.maps.Map(mapContainer, this.mapConfig)
         this.initialMarkers.forEach(marker => {
             let actualMarkerIcon;
@@ -89,13 +78,38 @@ export default {
             this.markers[marker.id] = {position:marker.position, markerElement:actualMarker}
 
         });
-
         //Így lehet markert törölni a térképről
         // this.markers[2].markerElement.setMap(null)
         // this.markers[2].markerElement.setVisible(false)
         // this.markers[<marker id-ja>].markerElement.setMap(null)
+    },
+    async setInitialMarkers(){
+        let challangeList;
+        challangeList = await listChallenges(this.userId)
+        if (!challangeList.length) {
+            await createTreasueChallenges(this.userId,this.userCurrentPosition.lat,this.userCurrentPosition.lng)
+            challangeList = await listChallenges(this.userId)
+        }
+        challangeList.forEach(challange => {
+            this.initialMarkers.push({
+                position: challange.params,
+                type:challange.challenge_type.toLowerCase(),
+                id:challange.id
+            })
+        });
+        this.initialMarkers.push({
+            position: this.userCurrentPosition,
+            type:"you-are-here",
+            id:0
+        })
+    },
+    removeMarker(markerId){
+        this.markers[markerId].markerElement.setVisible(false)
     }
-  }
+  },
+//   async mounted(){
+//       
+//   }
 }
 </script>
 <style scoped>
