@@ -1,7 +1,7 @@
 <template>
   <Card class="mapCard">
     <div class="cardContent">
-      <div class="bigdiv"><span class="big">Open map game</span></div>
+      <div class="bigdiv"><span class="big">Go to map game!</span></div>
     </div>
   </Card>
 </template>
@@ -23,6 +23,7 @@ export default {
     padding-left: 10px;
     padding-top: 15px;
     background: transparent !important;
+    max-width: 50%;
   }
   .cardTitle img {
     height: 18px;
@@ -32,10 +33,24 @@ export default {
     font-size: 25px;
     color: var(--brand-white);
     min-height: 140px;
+    position: relative;
   }
   .cardContent .big {
-    font-size: 35px;
+    font-size: 27px;
     font-weight: 500;
+  }
+
+  .cardContent::after {
+    content: ' ';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: url('/img/map-promo.png');
+    background-repeat: no-repeat;
+    background-size: 65%;
+    background-position: right;
   }
 
   .progress-bar {
