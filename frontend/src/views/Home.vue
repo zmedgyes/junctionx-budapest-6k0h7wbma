@@ -14,7 +14,7 @@
           Discovery
         </h2>
         <div class="cardRow">
-          <router-link tag="button" :to="{name : 'GoogleMap'}"><MapCard /></router-link>
+          <router-link class="maplink" tag="button" :to="{name : 'GoogleMap'}"><MapCard /></router-link>
         </div>
       </div>
   </div>
@@ -54,6 +54,10 @@ export default {
 h2 {
   font-weight: bold;
   margin: 6px 0px 0px 6px;
+}
+
+.maplink {
+  width: 100%;
 }
 </style>
 
