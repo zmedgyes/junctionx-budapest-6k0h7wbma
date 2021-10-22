@@ -30,8 +30,10 @@ module.exports = class UserChallengeController {
             const challenge = await this.challengeService.getChallengeByType(type);
             await this.userService.addPointsByUserId(user_id, challenge.params.points);
             await this.userChallengeService.deleteUserChallenge(id);
+            res.json({ success: true, points: challenge.params.points });
+            return;
         }
-        res.json({success: isValid});
+        res.json({success: false});
     }
 
     async getTreasureQR(req, res, next) {
