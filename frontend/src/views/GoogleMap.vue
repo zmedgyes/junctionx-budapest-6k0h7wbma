@@ -1,25 +1,30 @@
 <template>
+    <QRScan v-if="!QRclosed" @closeQR="onCloseQR" />
     <GoogleMapLoader ref="mapLoader" :userId="userId"/>
     <button @click="$refs.mapLoader.removeMarker(2)">Remove second marker</button>
     <router-link tag="button" :to="{name : 'Home'}">Home</router-link>
 </template>
 
 <script>
+import QRScan from '../components/QRScan.vue'
 import GoogleMapLoader from '../components/GoogleMapLoader.vue'
 
 export default {
     name: 'GoogleMap',
     components: {
-        GoogleMapLoader
+        GoogleMapLoader, QRScan
     },
     data(){
         return{
-            userId:1,
+            userId: 1,
+            QRclosed: false
         }
     },
-    methods:{
-
-    },
+    methods: {
+        onCloseQR() {
+            this.QRclosed = true
+        }
+    }
 
 }
 </script>
