@@ -37,32 +37,43 @@ module.exports = class UserChallengeService {
 
     async verifyChallenge(userId, type, params) {
         const userChallenges = await this.getUserChallengesByUserIdAndType(userId, type);
+        const challenge = (userChallenges.length > 0) ? (await this.challengeService.getChallengeByType(type)) : null;
+        const results = [];
 
         if (type === CHALLENGE_TYPES.TREASURE) {
             for(let userChallenge of userChallenges) {
                 const qr = this.getQRToTreasure(userChallenge.params.lat, userChallenge.params.lng);
                 if(qr === params.qr) {
                     await this.deleteUserChallenge(userChallenge.id );
-                    return { isValid: true };
+                    results.push({ points: challenge.params.points });
                 }
             }
         } else if (type === CHALLENGE_TYPES.RUSH) {
             if(userChallenges.length > 0) {
-                const challenge = await this.challengeService.getChallengeByType(type);
                 const timeout = (challenge.params.duration / challenge.params.decline) * 60000;
                 const now = new Date().getTime();
                 for(let userChallenge of userChallenges) {
-                    const reached = timeout - (now - start);
-                    if(reached <= 0) {
+                    const passed = (now - userChallenge.params.start);
+                    if (passed >= timeout) {
                         await this.deleteUserChallenge(userChallenge.id);
-                    } else if(isNearby(params.lat, params.lng, userChallenge.params.lat, userChallenge.params.lng, challenge.range)) {
-                        const points = challenge.points - (Math.floor(reached * rate / 60000));
-                        return { isValid: true, id: userChallenge.id, points };
+                    } else if (isNearby(params.lat, params.lng, userChallenge.params.lat, userChallenge.params.lng, challenge.params.range)) {
+                        await this.deleteUserChallenge(userChallenge.id);
+                        const points = challenge.params.points - (Math.floor(passed * challenge.params.decline / 60000));
+                        results.push({ points });
+                    } else {
+                        results.push({ points: 0 });
                     }
                 }      
             }
+        } else if (type === CHALLENGE_TYPES.RANDOM) {
+            for(let userChallenge of userChallenges) {
+                const randomVal = Math.random();
+                if(randomVal <= challenge.params.rate) {
+                    results.push({ points: challenge.params.points });
+                }
+            }
         }
-        return { isValid: false };
+        return results;
     }
 
     async createUserChallenges(userId, type, config) {
@@ -74,9 +85,12 @@ module.exports = class UserChallengeService {
         } else if (type === CHALLENGE_TYPES.RUSH) {
             await this._addUserChallenge(userId, type, config);
         }
+        else if (type === CHALLENGE_TYPES.RANDOM) {
+            await this._addUserChallenge(userId, type);
+        }
     }
 
-    async _addUserChallenge(userId, type, params){
+    async _addUserChallenge(userId, type, params = {}){
         await this.db.query('INSERT INTO user_challenge (user_id, challenge_type, params) VALUES (?,?,?)', [userId, type, JSON.stringify(params)])
     }
 

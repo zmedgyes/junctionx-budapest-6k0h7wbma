@@ -19,6 +19,7 @@ const POIController = require('../controllers/poi-controller');
 const ChallengeController = require('../controllers/challenge-controller');
 const UserChallengeController = require('../controllers/user-challenge-controller');
 const ShopController = require('../controllers/shop-controller');
+const PollController = require('../controllers/poll-controller');
 
 module.exports = {
     getInjector: () => {
@@ -47,6 +48,7 @@ module.exports = {
         injector.addClass('challengeController', ChallengeController);
         injector.addClass('userChallengeController', UserChallengeController);
         injector.addClass('shopController', ShopController);
+        injector.addClass('pollController', PollController);
 
         return injector;
     }
