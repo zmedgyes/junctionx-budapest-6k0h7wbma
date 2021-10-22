@@ -68,7 +68,6 @@ module.exports = class UserService {
         const user = await this.getUserById(userId);
         if(user) {
             const points = (user.data.points || 0) + diff;
-            console.log(points);
             await this.updateUserData(userId, Object.assign(user.data, { points }));
         }
     }

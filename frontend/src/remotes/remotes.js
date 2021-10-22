@@ -24,3 +24,7 @@ export async function createTreasueChallenges(userId, lat, lng) {
 export async function verifyTreasure(userId, lat, lng, qr) {
     return postData('/user/challenge/verify', { user_id: userId, type: 'TREASURE', config: { lat, lng, qr } });
 }
+
+export async function getPoints(userId) {
+    return postData('/user/getPoints', { user_id: userId });
+}
