@@ -63,7 +63,6 @@ export default {
                 map: this.map,
                 icon:{ url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(actualMarkerIcon), scaledSize: new this.google.maps.Size(actualMarkerSize, actualMarkerSize) }
             });
-            // this.markers.push(actualMarker)
             this.markers[marker.id] = {position:marker.position, markerElement:actualMarker}
 
         });
