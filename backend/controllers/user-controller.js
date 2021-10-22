@@ -22,7 +22,6 @@ module.exports = class UserController {
 
     async deleteUser(req, res, next) {
         const { user_id } = req.body;
-        console.log(req.body)
         try {
             await this.userService.deleteUser(user_id);
             res.json({ success: true})
