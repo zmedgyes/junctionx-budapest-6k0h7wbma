@@ -2,7 +2,7 @@
     <GoogleMapLoader
     :mapConfig="mapDefaultConfig"
     :apiKey="googleApiKey"
-    :markers="markers" 
+    :initialMarkers="markers" 
     />
 </template>
 

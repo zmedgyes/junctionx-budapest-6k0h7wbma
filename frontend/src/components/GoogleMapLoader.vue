@@ -12,19 +12,20 @@
 
 <script>
 import GoogleMapsApiLoader from 'google-maps-api-loader'
-import Markers from "../constants/svgMarkers"
+import MarkerIcons from "../constants/svgMarkers"
 export default {
   props: {
     mapConfig: Object,
     apiKey: String,
-    markers: Array
+    initialMarkers: Array
   },
 
   data() {
     return {
         google: null,
         map: null,
-        Markers,
+        MarkerIcons,
+        markers:[]
     }
   },
 
@@ -40,13 +41,17 @@ export default {
     initializeMap() {
         const mapContainer = this.$refs.googleMap
         this.map = new this.google.maps.Map(mapContainer, this.mapConfig)
-        this.markers.forEach(marker => {
-            new this.google.maps.Marker({
+        this.initialMarkers.forEach(marker => {
+            let actualMarker = new this.google.maps.Marker({
                 position: marker.position,
                 map: this.map,
-                icon:{ url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(this.Markers.vodafoneTestMarker), scaledSize: new this.google.maps.Size(20, 20) }
+                icon:{ url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(this.MarkerIcons.vodafoneTestMarker), scaledSize: new this.google.maps.Size(20, 20) }
             });
+            this.markers.push(actualMarker)
         });
+
+        //Így lehet markert törölni a térképről
+        // this.markers[0].setMap(null)
     }
   }
 }
