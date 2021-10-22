@@ -1,6 +1,7 @@
 const Injector = require('../misc/injector');
 const Redis = require('../misc/redis');
-const Database = require( '../misc/database');
+//const PgDatabase = require('../misc/pg-database');
+const SQLiteDatabase = require('../misc/sqlite-database');
 const express = require('express');
 const RouteHelper = require('../misc/route-helper');
 
@@ -14,7 +15,7 @@ module.exports = {
 
         //SINGLETONS
         //injector.addConstant('redis', new Redis());
-        //injector.addConstant('db', new Database());
+        injector.addConstant('db', new SQLiteDatabase());
         injector.addConstant('app', express());
 
         //SERVICES
