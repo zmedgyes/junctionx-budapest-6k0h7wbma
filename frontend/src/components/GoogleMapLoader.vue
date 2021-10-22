@@ -25,7 +25,7 @@ export default {
         google: null,
         map: null,
         MarkerIcons,
-        markers:[]
+        markers:{}
     }
   },
 
@@ -42,17 +42,35 @@ export default {
         const mapContainer = this.$refs.googleMap
         this.map = new this.google.maps.Map(mapContainer, this.mapConfig)
         this.initialMarkers.forEach(marker => {
+            let actualMarkerIcon;
+            let actualMarkerSize;
+            switch (marker.type) {
+                case "treasure":
+                    actualMarkerIcon = this.MarkerIcons.vodafoneDefaultMarker
                     actualMarkerSize = 30
+                    break;
+                case "you-are-here":
+                    actualMarkerIcon = this.MarkerIcons.youAreHereMarker
+                    actualMarkerSize = 20
+                    break;
+                default:
+                    actualMarkerIcon = this.MarkerIcons.vodafoneDefaultMarker
+                    actualMarkerSize = 30
+                    break;
+            }
             let actualMarker = new this.google.maps.Marker({
                 position: marker.position,
                 map: this.map,
-                icon:{ url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(this.MarkerIcons.vodafoneTestMarker), scaledSize: new this.google.maps.Size(20, 20) }
+                icon:{ url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(actualMarkerIcon), scaledSize: new this.google.maps.Size(actualMarkerSize, actualMarkerSize) }
             });
-            this.markers.push(actualMarker)
+            // this.markers.push(actualMarker)
+            this.markers[marker.id] = {position:marker.position, markerElement:actualMarker}
+
         });
 
         //Így lehet markert törölni a térképről
-        // this.markers[0].setMap(null)
+        // this.markers[2].markerElement.setMap(null)
+        // this.markers[<marker id-ja>].markerElement.setMap(null)
     }
   }
 }

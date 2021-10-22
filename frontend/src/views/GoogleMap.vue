@@ -21,9 +21,9 @@ export default {
             mapDefaultConfig,
             googleApiKey,
             markers: [
-                {position:{ lat: -25.344, lng: 131.036 }},
-                {position:{ lat: -27.344, lng: 133.036 }},
-                {position:{ lat: -23.344, lng: 129.036 }},
+                {position:{ lat: 47.4858873, lng: 19.077491 }, type:"you-are-here", id:1},
+                {position:{ lat: 47.4838873, lng: 19.075491 }, type:"treasure", id:2},
+                {position:{ lat: 47.4848873, lng: 19.076491 }, type:"treasure", id:3},
             ]
         }
     }
