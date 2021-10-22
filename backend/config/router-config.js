@@ -22,6 +22,7 @@ module.exports = {
         routeHelper.addAPIRoute('post', '/user/challenge/verify', 'userChallengeController', 'verifyUserChallenge');
 
         routeHelper.addAPIRoute('post', '/admin/getTreasureQR', 'userChallengeController', 'getTreasureQR');
+        routeHelper.addAPIRoute('post', '/admin/startRush', 'userChallengeController', 'startRush');
 
         // SHOP
         routeHelper.addAPIRoute('post', '/shop/listItems', 'shopController', 'listItems');
@@ -29,10 +30,6 @@ module.exports = {
         routeHelper.addAPIRoute('post', '/shop/deleteItem', 'shopController', 'deleteItem');
         routeHelper.addAPIRoute('post', '/shop/buyItem', 'shopController', 'buyItem');
         
-    
-
-
-
         // AUTH
         // routeHelper.addAPIRoute('post', '/auth/login', 'authController', 'login');
         // routeHelper.addAPIRoute('post', '/auth/logout', 'authController', 'logout');
@@ -45,6 +42,9 @@ module.exports = {
         routeHelper.addAPIRoute('post', '/challenge/getByType', 'challengeController', 'getChallengeByType');
         routeHelper.addAPIRoute('post', '/challenge/add', 'challengeController', 'addChallenge');
         routeHelper.addAPIRoute('post', '/challenge/delete', 'challengeController', 'deleteChallenge');
+
+        // POLL
+        routeHelper.addAPIRoute('post', '/poll', 'pollController', 'poll');
 
         // FRONTEND
         const app = injector.get('app');
