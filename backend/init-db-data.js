@@ -26,8 +26,14 @@ const { CHALLENGE_TYPES } = require('./misc/types');
         },
         async (injector) => {
             const challengeService = injector.get('challengeService');
-            await challengeService.addChallenge(CHALLENGE_TYPES.RUSH, { points: 1000, decline: 10, range: 50 });
-            await challengeService.addChallenge(CHALLENGE_TYPES.RANDOM, { points: 10, rate: 0.01 });
+            await challengeService.addChallenge(CHALLENGE_TYPES.RUSH, { points: 1200, decline: 10, range: 50 });
+            await challengeService.addChallenge(CHALLENGE_TYPES.RANDOM, { points: 5, rate: 0.01 });
+            const userService = injector.get('userService');
+            const userChallengeService = injector.get('userChallengeService');
+            const users = await userService.listUsers();
+            for(let user of users){
+                await userChallengeService.createUserChallenges(user.user_id, CHALLENGE_TYPES.RANDOM);
+            }
         }
     ];
 
