@@ -43,5 +43,12 @@ module.exports = {
                 challenge_type TEXT NOT NULL,
                 params JSON NOT NULL
             )`);
+
+        // await db.query(`DROP TABLE IF EXISTS shop_item`);
+        await db.query(`CREATE TABLE IF NOT EXISTS shop_item (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                price INTEGER NOT NULL,
+                data TEXT NOT NULL
+            )`);
     }
 };

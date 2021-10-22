@@ -28,3 +28,11 @@ export async function verifyTreasure(userId, lat, lng, qr) {
 export async function getPoints(userId) {
     return postData('/user/getPoints', { user_id: userId });
 }
+
+export async function listShopItems() {
+    return postData('/shop/listItems');
+}
+
+export async function buyShopItem(userId, itemId) {
+    return postData('/shop/buyItem', { user_id: userId, item_id: itemId});
+}

@@ -10,6 +10,7 @@ const UserService = require('../services/user-service');
 const OverpassService = require('../services/overpass-service');
 const ChallengeService = require('../services/challenge-service');
 const UserChallengeService = require('../services/user-challenge-service');
+const ShopService = require('../services/shop-service');
 
 const ExampleController = require('../controllers/example-controller');
 const UserController = require('../controllers/user-controller');
@@ -17,6 +18,7 @@ const AuthController = require('../controllers/auth-controller');
 const POIController = require('../controllers/poi-controller');
 const ChallengeController = require('../controllers/challenge-controller');
 const UserChallengeController = require('../controllers/user-challenge-controller');
+const ShopController = require('../controllers/shop-controller');
 
 module.exports = {
     getInjector: () => {
@@ -34,6 +36,7 @@ module.exports = {
         injector.addClass('overpassService', OverpassService);
         injector.addClass('challengeService', ChallengeService);
         injector.addClass('userChallengeService', UserChallengeService);
+        injector.addClass('shopService', ShopService);
 
 
         //CONTROLLERS
@@ -43,6 +46,7 @@ module.exports = {
         injector.addClass('poiController', POIController);
         injector.addClass('challengeController', ChallengeController);
         injector.addClass('userChallengeController', UserChallengeController);
+        injector.addClass('shopController', ShopController);
 
         return injector;
     }
