@@ -16,8 +16,8 @@ const { CHALLENGE_TYPES } = require('./misc/types');
         },
         async (injector) => {
             const challengeService = injector.get('challengeService');
-            await challengeService.addChallenge(CHALLENGE_TYPES.GOTO, 'Basic Go-To challenge', { radius: 0.01 });
-            await challengeService.addChallenge(CHALLENGE_TYPES.TREASURE, 'Basic TreasureHunt challenge', { radius: 0.01, nodes: 10 });
+            await challengeService.addChallenge(CHALLENGE_TYPES.GOTO, { radius: 0.01 });
+            await challengeService.addChallenge(CHALLENGE_TYPES.TREASURE, { radius: 0.01, nodes: 10 });
         }
     ];
 
