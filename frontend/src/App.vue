@@ -27,6 +27,7 @@ export default {
   --brand-paper: #f4f4f4;
   --brand-black: #333333;
   --brand-white: #fff;
+  --brand-lightgrey: #5c5c5c;
 }
 
 html > body {
