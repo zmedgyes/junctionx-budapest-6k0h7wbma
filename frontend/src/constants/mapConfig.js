@@ -1,9 +1,9 @@
 const mapStyles = require("./mapStyles")
 
 const mapConfig = {
-    zoom: 4,
-    center: { lat: -25.344, lng: 131.036 },
-    styles: mapStyles.defaultTestStyle,
+    zoom: 15,
+    center: { lat: 47.4848873, lng: 19.076491 },
+    styles: mapStyles.vodafoneStyleV1,
     disableDefaultUI: true,
 }
 

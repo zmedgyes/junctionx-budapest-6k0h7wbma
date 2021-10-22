@@ -42,6 +42,7 @@ export default {
         const mapContainer = this.$refs.googleMap
         this.map = new this.google.maps.Map(mapContainer, this.mapConfig)
         this.initialMarkers.forEach(marker => {
+                    actualMarkerSize = 30
             let actualMarker = new this.google.maps.Marker({
                 position: marker.position,
                 map: this.map,
