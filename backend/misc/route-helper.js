@@ -16,15 +16,23 @@ module.exports = class RouteHelper {
         if (typeof this.app[methodName] !== 'function') {
             throw new Error(`${methodName} is not a member of the express app`);
         }
-        const routeHandler = (requiredRole) ? (req, res, next) => {
+
+
+        const routeHandler = (requiredRole) ? async (req, res, next) => {
             if (!checkRole(req.session, requiredRole)){
                 res.status(403).send('Unauthorized');
                 return;
             }
-            controller[action](req, res, next);
+            await controller[action](req, res, next);
         } : controller[action].bind(controller);
         
-        this.app[methodName](route, routeHandler);
+        this.app[methodName](route, async (req, res, next) => {
+            try {
+                await routeHandler(req, res, next);
+            } catch (err) {
+                next(err);
+            }
+        });
     }
 
     addAPIRoute(method, route, controllerName, action, requiredRole) {
