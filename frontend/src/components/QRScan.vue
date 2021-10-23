@@ -113,7 +113,8 @@ export default {
 
 .qrcode-stream-wrapper{
   /* height: 100vh */
-  border: 4px solid var(--brand-color)
+  border: 4px solid var(--brand-color);
+  margin-top:40%
 
 }
 
