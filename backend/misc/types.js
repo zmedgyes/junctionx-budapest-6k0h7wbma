@@ -6,7 +6,9 @@ module.exports = {
         TUTORIAL: 'TUTORIAL',
         RUSH: 'RUSH',
         RANDOM: 'RANDOM',
-        QR: 'QR'
+        QR: 'QR',
+        STREAK: 'STREAK'
     },
-    METER2DEG: 0.00001
+    METER2DEG: 0.00001,
+    DAYMS: 24 * 60 * 60 * 1000
 }

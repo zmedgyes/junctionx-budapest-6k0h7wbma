@@ -1,4 +1,4 @@
-const { METER2DEG } = require("./types");
+const { METER2DEG, DAYMS } = require("./types");
 
 module.exports = {
     getRandomNumber: (range) => {
@@ -17,5 +17,14 @@ module.exports = {
     isNearby: (posLat, posLng, origLat, origLng, range) => {
         const rangeDeg = range * METER2DEG;
         return (Math.abs(posLat - origLat) < rangeDeg) && (Math.abs(posLng - origLng) < rangeDeg);
+    },
+
+    isSameDay: (lastTime, currentTime) =>{
+        return (currentTime - lastTime) < DAYMS;
+    },
+
+    isNextDay: (lastTime, currentTime) => {
+        const diff = (currentTime - lastTime);
+        return diff >= DAYMS && diff < 2 * DAYMS;
     }
 }
