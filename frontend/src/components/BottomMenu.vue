@@ -1,4 +1,5 @@
 <template>
+
 <div class="bmenuContainer">
     <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
     viewBox="0 0 1125 250" style="enable-background:new 0 0 1125 250;" xml:space="preserve">
@@ -11,7 +12,7 @@
           s-92.7-33-107-78.4c-0.7-2.1-1.3-4.2-1.8-6.4c-9.9-29.9-38-51.4-71.2-51.4H75H0v75v95h75h307.5h360H1050h75v-95V80H1050z"/>
       </g>
     </g>
-    <g>
+    <g data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">
       <g>
         
           <image style="overflow:visible;opacity:0.3;" width="248" height="249" xlink:href="/img/FCFDE699.png"  transform="matrix(1 0 0 1 438.5 -24.4105)">
@@ -120,11 +121,66 @@
       </g>
     </g>
     </svg>
+</div>
+<div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasBottomLabel">You have a {{streak}} day long streak</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
+  <div class="offcanvas-body">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <router-link tag="button" :to="{name : 'Home'}">
+            <OffcanvasCard
+              mainText="Bact to Home Page"
+              subText=" "
+              icon="home"
+              initStyle="default"
+            />
+          </router-link>
+        </div>
+        <div class="col">
+            <OffcanvasCard
+              mainText="Redeem a QR code!"
+              subText="Read the QR code. Click here"
+              icon="scan"
+              initStyle="red"
+            />
+        </div>
+        <div class="col">
+          <OffcanvasCard
+            mainText="Daily Challange"
+            subText="Do the Daily Challange and Earn VodPoints"
+            icon="daily"
+            initStyle="red"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 </template>
 
 <script>
-export default {};
+import { getStreak } from "../remotes/remotes"
+import OffcanvasCard from "../components/cards/OffcanvasCard.vue"
+export default {
+    components: {
+        OffcanvasCard
+    },
+    data () {
+    return {
+      streak:0
+    }
+  },
+  async mounted(){
+    const streakresult = await getStreak(1)
+    if (streakresult.streak) {this.streak = streakresult.streak}
+    else{this.streak = 1}
+  }
+};
 </script>
 
 <style scoped>
@@ -138,5 +194,8 @@ export default {};
     position: fixed;
     bottom: 0;
     width: 100vw;
+}
+#offcanvasBottom{
+      height: 250px !important;
 }
 </style>
