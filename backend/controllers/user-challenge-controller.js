@@ -38,8 +38,12 @@ module.exports = class UserChallengeController {
     async getTreasureQR(req, res, next) {
         const { id } = req.body;
         const userChallenge = await this.userChallengeService.getUserChallengeById(id);
-        const qr = this.userChallengeService.getQRToTreasure(userChallenge.params.lat, userChallenge.params.lng);
-        res.json({ qr });
+        if(userChallenge){
+            const qr = this.userChallengeService.getQRToTreasure(userChallenge.params.lat, userChallenge.params.lng);
+            res.json({ qr });
+        } else {
+            res.status(404).json({ error: 'Attila, ne hívogass faszságogat!' });
+        }
     }
 
     async startRush(req, res, next) {
