@@ -6,11 +6,13 @@ export async function getCurrentPosition() {
                     resolve({ lat: position.coords.latitude, lng: position.coords.longitude});
                 },
                 (err) => {
-                    reject(err);
+                    //reject(err);
+                    resolve({ lat: 49.111, lng: 19.234});
                 }
             );
         } else {
-            reject(new Error("Geolocation is not supported by this browser."));
+            //reject(new Error("Geolocation is not supported by this browser."));
+            resolve({ lat: 49.111, lng: 19.234 });
         }
     });
 }
