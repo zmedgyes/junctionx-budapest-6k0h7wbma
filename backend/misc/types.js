@@ -2,7 +2,7 @@ module.exports = {
     CHALLENGE_TYPES: {
         GOTO: 'GOTO',
         TREASURE: 'TREASURE',
-        SEARCH: 'SEARCH',
+        QUIZ: 'QUIZ',
         TUTORIAL: 'TUTORIAL',
         RUSH: 'RUSH',
         RANDOM: 'RANDOM',
