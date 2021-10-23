@@ -89,6 +89,7 @@ export default {
   position: relative;
   padding: 50px;
   background-color: rgba(220,220,220,0.75);
+  height: 100vh !important;
 }
 
 .qrscan >>> div:first-of-type {
@@ -112,12 +113,14 @@ export default {
 }
 
 .qrcode-stream-wrapper{
-  height: 270px !important;
+  /* height: 100vh */
+  border: 4px solid var(--brand-color)
+
 }
 
 .qrStreamContainer{
-  /* border: dashed 4px red;
-  padding: 20px;
-  height: 325px !important; */
+
+  height: 300px !important;
 }
+
 </style>
