@@ -30,9 +30,9 @@ export default {
 
     onDecode (result) {
       this.result = result
-      if (result) {
+      if (this.result) {
         // alert(result)
-        this.$emit('onQRDecode',{success:true,QRContent:result})
+        this.$emit('onQRDecode',{success:true,QRContent:this.result})
       }else{
         this.$emit('onQRDecode',{success:false,QRContent:null})
       }
