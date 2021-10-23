@@ -56,4 +56,15 @@ module.exports = class UserChallengeController {
         }
         res.json({ success: true });
     }
+
+    async addGlobalQR(req,res,next) {
+        const { qr, points } = req.body;
+        const config = { qr, points };
+        const users = await this.userService.listUsers();
+        for (let user of users) {
+            await this.userChallengeService.createUserChallenges(user.user_id, CHALLENGE_TYPES.QR, config);
+        }
+        res.json({ success: true });
+
+    }
 }

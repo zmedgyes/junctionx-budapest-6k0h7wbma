@@ -5,7 +5,8 @@ module.exports = {
         SEARCH: 'SEARCH',
         TUTORIAL: 'TUTORIAL',
         RUSH: 'RUSH',
-        RANDOM: 'RANDOM'
+        RANDOM: 'RANDOM',
+        QR: 'QR'
     },
     METER2DEG: 0.00001
 }

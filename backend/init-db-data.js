@@ -34,6 +34,10 @@ const { CHALLENGE_TYPES } = require('./misc/types');
             for(let user of users){
                 await userChallengeService.createUserChallenges(user.user_id, CHALLENGE_TYPES.RANDOM);
             }
+        },
+        async (injector) => {
+            const challengeService = injector.get('challengeService');
+            await challengeService.updateChallengeByType(CHALLENGE_TYPES.QR, {});
         }
     ];
 

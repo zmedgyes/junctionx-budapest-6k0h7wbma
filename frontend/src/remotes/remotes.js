@@ -25,6 +25,10 @@ export async function verifyTreasure(userId, lat, lng, qr) {
     return postData('/user/challenge/verify', { user_id: userId, type: 'TREASURE', config: { lat, lng, qr } });
 }
 
+export async function verifyQR(userId, qr) {
+    return postData('/user/challenge/verify', { user_id: userId, type: 'QR', config: {  qr } });
+}
+
 export async function getPoints(userId) {
     return postData('/user/getPoints', { user_id: userId });
 }
