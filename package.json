@@ -7,7 +7,7 @@
     "start": "node ./backend/app.js",
     "build-frontend": "cd ./frontend && npm install --production=false && npm run build && npm prune --production",
     "build-backend": "cd ./backend && npm install --only=prod",
-    "migrate-db": "cd ./backend && npm run migrated-db",
+    "migrate-db": "cd ./backend && npm run migrate-db",
     "build": "npm-run-all --parallel build-backend build-frontend migrate-db",
     "watch-frontend": "cd ./frontend && npm run watch",
     "watch-backend": "nodemon --watch src backend/app.js",

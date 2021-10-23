@@ -1,11 +1,8 @@
 module.exports = {
   pwa: {
     workboxOptions: {
-      runtimeCaching: [
-      {
-        urlPattern: new RegExp('.*\.(png|jpg|svg|woff|gif)$'),
-        handler: 'StaleWhileRevalidate'
-      },  
+      exclude: [/.*index.html$/],
+      runtimeCaching: [  
       {
         urlPattern: new RegExp('.*'),
         handler: 'NetworkFirst',
