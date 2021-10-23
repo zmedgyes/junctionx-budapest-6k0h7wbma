@@ -89,10 +89,10 @@ export default {
   position: relative;
   padding: 50px;
   background-color: rgba(220,220,220,0.75);
+  height: 100vh !important;
 }
 
 .qrscan >>> div:first-of-type {
-  /* margin-top: -50px; */
   height: calc(100% - 30px);
 }
 
