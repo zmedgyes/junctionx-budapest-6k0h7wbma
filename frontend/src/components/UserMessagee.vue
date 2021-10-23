@@ -1,7 +1,7 @@
 <template>
 
   <div class="userMessageContainer">
-    <img class="confetti" src="img/smaller.gif" alt="">
+    <img v-if="this.userMessageInfo.icon =='success'" class="confetti" src="img/smaller.gif" alt="">
     <div class="statusIconContainer">
       <img class="statusIcon" :src="icon" alt="">
     </div>
