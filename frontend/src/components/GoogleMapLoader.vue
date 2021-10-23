@@ -82,7 +82,7 @@ export default {
                 map: this.map,
                 icon:{ url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(actualMarkerIcon), scaledSize: new this.google.maps.Size(actualMarkerSize, actualMarkerSize) }
             });
-            if (marker.type != "you-are-here") {
+            if (marker.type == "treasure") {
               this.google.maps.event.addListener(actualMarker,'click',()=>{this.scanMarkerQR(marker.id,marker.position)})
             }
             
