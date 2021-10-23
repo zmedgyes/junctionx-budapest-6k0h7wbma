@@ -2,6 +2,12 @@
 
 <div class="bmenuContainer">
   <DailyBox @cancel="this.dailyIsOpen = false" v-if="dailyIsOpen" />
+  <QRScan v-if="qrIsOpen"
+    @closeQR="this.qrIsOpen = false"
+    @onQRDecode="onQRScan" />
+  <UserMessagee v-if="userMessage.isVisible"
+    :userMessageInfo="userMessage"
+    @closeUserMessage="closeMessage"/>
     <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
     viewBox="0 0 1125 250" style="enable-background:new 0 0 1125 250;" xml:space="preserve">
     <g>
@@ -142,12 +148,14 @@
           </router-link>
         </div>
         <div class="col">
+          <div @click="openQRScan">
             <OffcanvasCard
               mainText="Redeem a QR code!"
               subText="Read the QR code. Click here"
               icon="scan"
               initStyle="red"
             />
+          </div>
         </div>
         <div class="col">
           <div @click="openDaily">
@@ -170,25 +178,65 @@
 import { getStreak } from "../remotes/remotes"
 import OffcanvasCard from "../components/cards/OffcanvasCard.vue"
 import DailyBox from "../components/DailyBox.vue"
+import QRScan from "../components/QRScan.vue"
+import UserMessagee from "../components/UserMessagee.vue"
+import { verifyQR } from "../remotes/remotes"
+import { USER_ID } from "../misc/user"
 export default {
     components: {
-        OffcanvasCard, DailyBox
+        OffcanvasCard, DailyBox, QRScan, UserMessagee
     },
     data () {
     return {
       streak:0,
-      dailyIsOpen: false
+      dailyIsOpen: false,
+      qrIsOpen: false, 
+      userMessage:{
+        isVisible:false,
+        mainMessage:"This is some messgage",
+        subMessage:"Damn thats a pretty good submesssage",
+        icon:"success"
+      }
     }
   },
   async mounted(){
-    const streakresult = await getStreak(1)
+    const streakresult = await getStreak(USER_ID)
     if (streakresult.streak) {this.streak = streakresult.streak}
     else{this.streak = 1}
   },
   methods: {
     openDaily() {
-      console.log("openDail")
       this.dailyIsOpen = true
+    },
+    openQRScan() {
+      this.qrIsOpen = true
+    },
+    async onQRScan(payload){
+      this.qrIsOpen = false
+      if(payload.success) {
+        const { success, points } = await verifyQR(USER_ID,payload.QRContent);
+        if (success) {
+          this.userMessage.mainMessage = 'QR scan is successfull!'
+          if (points) {
+            this.userMessage.subMessage = `You got extra ${points} Vodafone points!`
+          } else {
+            this.userMessage.subMessage = 'Your vodafone points are credited to your account'
+          }
+          this.userMessage.icon = 'success'     
+        } else {
+          this.userMessage.mainMessage = 'The scanned QR is not active'
+          this.userMessage.subMessage = 'Please try to scan another treasure QR codes'
+          this.userMessage.icon = 'error'
+        }
+      } else {
+        this.userMessage.mainMessage = 'QR scanning has failed'
+        this.userMessage.subMessage = 'Please try again'
+        this.userMessage.icon = 'error'
+      }
+      this.userMessage.isVisible = true;
+    },
+    closeMessage(){
+      this.userMessage.isVisible = false
     }
   }
 };

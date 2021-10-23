@@ -77,7 +77,7 @@ export default {
                     
                 }else{
                     this.userMessage.mainMessage = 'The scanned QR is not active'
-                    this.userMessage.subMessage = 'Please try to scan another trasure QR codes'
+                    this.userMessage.subMessage = 'Please try to scan another treasure QR codes'
                     this.userMessage.icon = 'error'
 
                 }

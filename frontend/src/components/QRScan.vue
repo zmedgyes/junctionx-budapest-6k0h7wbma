@@ -64,6 +64,7 @@ export default {
           this.error = `ERROR: Camera error (${error.name})`;
         }
       } finally {
+        console.log('QR loaded')
         this.$store.dispatch('deActivateLoader')
         this.loading = false
       }
