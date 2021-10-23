@@ -16,10 +16,13 @@
           </div>
         </div>
         <h2>
-          Discovery
+          Treasure Hunt
         </h2>
         <div class="cardRow">
           <router-link class="maplink" tag="button" :to="{name : 'GoogleMap'}"><MapCard /></router-link>
+        </div>
+        <div class="toShop">
+          <router-link :to="{name: 'PointShop'}">Exchange Voda Points</router-link>
         </div>
       </div>
   </div>
@@ -98,6 +101,17 @@ h2 {
   display: flex;
   flex-direction: column;
   width: 50%;
+}
+.toShop {
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  align-items: center;
+}
+.toShop >>> a {
+  color: var(--brand-color);
+  font-size: 18px;
+  white-space: nowrap;
 }
 </style>
 
