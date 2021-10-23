@@ -40,9 +40,9 @@ module.exports = class UserChallengeController {
         const userChallenge = await this.userChallengeService.getUserChallengeById(id);
         if(userChallenge){
             const qr = this.userChallengeService.getQRToTreasure(userChallenge.params.lat, userChallenge.params.lng);
-            res.json({ qr });
+            res.json({ success: true, qr });
         } else {
-            res.status(404).json({ error: 'Attila, ne hívogass faszságogat!' });
+            res.status(404).json({ success: false, error: 'Attila, ne hívogass faszságogat!' });
         }
     }
 
