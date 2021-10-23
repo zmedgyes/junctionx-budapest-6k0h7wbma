@@ -1,5 +1,7 @@
 <template>
+
   <div class="userMessageContainer">
+    <img class="confetti" src="img/smaller.gif" alt="">
     <div class="statusIconContainer">
       <img class="statusIcon" :src="icon" alt="">
     </div>
@@ -79,10 +81,28 @@ export default {
     margin-top: 10px;
     padding: 5px 40px
   }
+  .buttonContainer{
+    position: fixed;
+    width: 100vw;
+    /* height: 200px; */
+    margin: 5% auto; /* Will not center vertically and won't work in IE6/7. */
+    left: 0;
+    right: 0;
+    z-index:8000
+  }
   .closeButton{
     width:60vw;
     margin:100px auto;
     display:block;
+    
+  }
+  .confetti{
+    position: fixed;
+    bottom: 0;
+    left:0;
+    height: 100vh;
+    width:100vw;
+    z-index:7000
   }
 
 </style>
