@@ -1,6 +1,6 @@
 
 const { encryptPassword, USER_ROLES } = require('../misc/auth-util');
-const DEFAULT_USER_DATA = { points: 0 };
+const DEFAULT_USER_DATA = { points: 2000 };
 const DEFAULT_USER_ROLES = [USER_ROLES.USER];
 
 function _parseJSONFields(user) {
