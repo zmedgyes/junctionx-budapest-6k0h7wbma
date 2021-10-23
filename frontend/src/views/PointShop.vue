@@ -5,16 +5,10 @@
             <PointsBalanceCard />
             <Tabs>
                 <Tab name="Minutes">
-                    <OfferCard offer="60 minutes, single use" cost="190" amount="60 minutes" imgSrc="/img/call.svg" />
-                    <OfferCard offer="45 minutes, single use" cost="165" amount="45 minutes" imgSrc="/img/call.svg" />
-                    <OfferCard offer="30 minutes, single use" cost="125" amount="30 minutes" imgSrc="/img/call.svg" />
-                    <OfferCard offer="10 minutes, single use" cost="50" amount="10 minutes" imgSrc="/img/call.svg" />
+                    <OfferCard v-for="item in minuteItems" :key="item.id" :offerId="item.id" :offer="item.offer" :offerType="item.type" :cost="item.price" :amount="item.amount" imgSrc="/img/call.svg" />
                 </Tab>
                 <Tab name="Data">
-                    <OfferCard offer="5 GB data, roaming capable" cost="3590" amount="5 GB" imgSrc="/img/arrow.svg" />
-                    <OfferCard offer="500 MB data, roaming capable" cost="990" amount="500 MB" imgSrc="/img/arrow.svg" />
-                    <OfferCard offer="100 MB data" cost="210" amount="100 MB" imgSrc="/img/arrow.svg" />
-                    <OfferCard offer="30 MB data" cost="85" amount="30 MB" imgSrc="/img/arrow.svg" />
+                    <OfferCard v-for="item in dataItems" :key="item.id" :offerId="item.id" :offer="item.offer" :offerType="item.type" :cost="item.price" :amount="item.amount" imgSrc="/img/arrow.svg" />
                 </Tab>
                 <Tab name="SMS">
                     <div class="nooffers">No offers of this kind.</div>
@@ -39,16 +33,33 @@ import Card from '../components/Card.vue'
 import PointsBalanceCard from '../components/cards/PointsBalanceCard.vue'
 import OfferCard from '../components/cards/OfferCard.vue'
 import {Tabs, Tab} from 'vue3-tabs-component';
+import {listShopItems} from '../remotes/remotes'
 
 export default {
     name: 'PointShop',
     components: { Card, PointsBalanceCard, Tab, Tabs, OfferCard, ShopNav },
     data(){
         return{
+            minuteItems: [],
+            dataItems: []
         }
     },
+    async created() {
+        await this.reloadItems();
+    },
     methods: {
-        
+        async reloadItems() {
+            const shopItems = (await listShopItems())
+                .map((item) => {
+                    return {
+                        id: item.id,
+                        price: item.price,
+                        ...item.data
+                    };
+                });
+            this.minuteItems = shopItems.filter((item) => item.type === "MINUTE")
+            this.dataItems = shopItems.filter((item) => item.type === "DATA")
+        }
     }
 
 }

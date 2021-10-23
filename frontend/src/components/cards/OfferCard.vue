@@ -1,6 +1,6 @@
 <template>
   <div>
-  <ExchangeConfirm @close="confirmOpen = false" :offer="offer" :cost="cost" :amount="amount" :isData="isData" v-if="confirmOpen" />
+  <ExchangeConfirm @close="exchangeConfirmed" :offer="offer" :cost="cost" :amount="amount" :isData="isData" v-if="confirmOpen" />
   <Card width="100%" @click="open">
     <div class="cardInner">
       <div class="cardTitle"><img :src="imgSrc"/></div>
@@ -17,20 +17,28 @@
 </template>
 
 <script>
+import { buyShopItem } from '../../remotes/remotes';
+import { USER_ID } from '../../misc/user';
 import Card from '../Card.vue'
 import ExchangeConfirm from '../ExchangeConfirm.vue'
 
 export default {
   components: {Card, ExchangeConfirm},
     props: {
+    offerId: {
+      type: Number
+    },
     imgSrc: {
       type: String
     },
     offer: {
       type: String
     },
-    cost: {
+    offerType: {
       type: String
+    },
+    cost: {
+      type: Number
     },
     amount: {
       type: String
@@ -38,7 +46,7 @@ export default {
   },
   computed: {
     isData() {
-      return this.offer && this.offer.includes('data')
+      return this.offerType === 'DATA';
     },
     cssProps() {
       return {
@@ -52,6 +60,11 @@ export default {
   methods: {
     open() {
       this.confirmOpen = true
+    },
+    async exchangeConfirmed() {
+      const { success } = await buyShopItem(USER_ID, this.offerId);
+      console.log('TODO: BUY FAILED');
+      this.confirmOpen = false
     }
   }
 }
