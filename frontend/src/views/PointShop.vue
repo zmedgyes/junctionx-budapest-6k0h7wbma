@@ -2,13 +2,13 @@
     <div class="pointshop">
         <ShopNav />
         <div>
-            <PointsBalanceCard />
+            <PointsBalanceCard :key="childKey" />
             <Tabs>
                 <Tab name="Minutes">
-                    <OfferCard v-for="item in minuteItems" :key="item.id" :offerId="item.id" :offer="item.offer" :offerType="item.type" :cost="item.price" :amount="item.amount" imgSrc="/img/call.svg" />
+                    <OfferCard @reloadNeeded="onReloadNeeded" v-for="item in minuteItems" :key="item.id" :offerId="item.id" :offer="item.offer" :offerType="item.type" :cost="item.price" :amount="item.amount" imgSrc="/img/call.svg" />
                 </Tab>
                 <Tab name="Data">
-                    <OfferCard v-for="item in dataItems" :key="item.id" :offerId="item.id" :offer="item.offer" :offerType="item.type" :cost="item.price" :amount="item.amount" imgSrc="/img/arrow.svg" />
+                    <OfferCard @reloadNeeded="onReloadNeeded" v-for="item in dataItems" :key="item.id" :offerId="item.id" :offer="item.offer" :offerType="item.type" :cost="item.price" :amount="item.amount" imgSrc="/img/arrow.svg" />
                 </Tab>
                 <Tab name="SMS">
                     <div class="nooffers">No offers of this kind.</div>
@@ -41,13 +41,17 @@ export default {
     data(){
         return{
             minuteItems: [],
-            dataItems: []
+            dataItems: [],
+            childKey: 0
         }
     },
     async created() {
         await this.reloadItems();
     },
     methods: {
+        onReloadNeeded() {
+            this.childKey = this.childKey + 1
+        },
         async reloadItems() {
             const shopItems = (await listShopItems())
                 .map((item) => {

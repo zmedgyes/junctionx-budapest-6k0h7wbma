@@ -158,14 +158,14 @@
           </div>
         </div>
         <div class="col">
-          <div @click="openDaily">
-          <OffcanvasCard
-            mainText="Daily Challange"
-            subText="Do the Daily Challange and Earn VodPoints"
-            icon="daily"
-            initStyle="red"
-          />
-          </div>
+          <router-link tag="button" :to="{name : 'PointShop'}">
+            <OffcanvasCard
+              mainText="Exchange points"
+              subText="Activate valuable services"
+              icon="daily"
+              initStyle="red"
+            />
+          </router-link>
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 <template>
 
   <div class="userMessageContainer">
-  <audio id="myAudio">
+  <audio v-if="this.userMessageInfo.icon =='success'" id="myAudio">
     <!-- <source src="horse.ogg" type="audio/ogg"> -->
     <source src="audio/Yii.mp3" type="audio/mpeg">
   </audio>
