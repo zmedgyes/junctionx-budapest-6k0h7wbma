@@ -93,7 +93,6 @@ export default {
 }
 
 .qrscan >>> div:first-of-type {
-  /* margin-top: -50px; */
   height: calc(100% - 30px);
 }
 
