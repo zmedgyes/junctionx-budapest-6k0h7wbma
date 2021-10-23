@@ -17,3 +17,5 @@ export const User = new class {
         return this._user.data;
     }
 }
+
+export const USER_ID = 1;

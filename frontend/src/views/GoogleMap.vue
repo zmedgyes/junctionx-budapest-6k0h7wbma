@@ -17,7 +17,7 @@ import QRScan from '../components/QRScan.vue'
 import UserMessagee from '../components/UserMessagee.vue'
 import GoogleMapLoader from '../components/GoogleMapLoader.vue'
 import { verifyTreasure } from "../remotes/remotes"
-import { User } from "../misc/user"
+import { User, USER_ID } from "../misc/user"
 import { getCurrentPosition } from '../misc/geolocation'
 
 export default {
@@ -60,7 +60,8 @@ export default {
         async handleScannedQr(payload){
             if (payload.success) {
                 const { lat, lng } = await getCurrentPosition();
-                const verifyQRResult = await verifyTreasure(User.Id,lat,lng,payload.QRContent)
+                // const verifyQRResult = await verifyTreasure(User.Id,lat,lng,payload.QRContent)
+                const verifyQRResult = await verifyTreasure(USER_ID,lat,lng,payload.QRContent, this.recentMarkerInfo.markerId)
                 if (verifyQRResult.success) {
   
                     if (this.recentMarkerInfo.markerId) {

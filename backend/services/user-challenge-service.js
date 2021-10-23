@@ -46,12 +46,14 @@ module.exports = class UserChallengeService {
 
         if (type === CHALLENGE_TYPES.TREASURE) {
             for(let userChallenge of userChallenges) {
-                const qr = this.getQRToTreasure(userChallenge.params.lat, userChallenge.params.lng);
-                if(qr === params.qr) {
-                    if (qr !== this.getQRToTreasure(DEMO_LAT, DEMO_LNG)) {
-                        await this.deleteUserChallenge(userChallenge.id );
+                if(userChallenge.id === params.id){
+                    const qr = this.getQRToTreasure(userChallenge.params.lat, userChallenge.params.lng);
+                    if(qr === params.qr) {
+                        if (qr !== this.getQRToTreasure(DEMO_LAT, DEMO_LNG)) {
+                            await this.deleteUserChallenge(userChallenge.id );
+                        }
+                        results.push({ points: challenge.params.points });
                     }
-                    results.push({ points: challenge.params.points });
                 }
             }
         } else if (type === CHALLENGE_TYPES.RUSH) {
