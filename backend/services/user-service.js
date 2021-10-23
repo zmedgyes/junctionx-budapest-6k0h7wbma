@@ -32,8 +32,13 @@ module.exports = class UserService {
         return _parseJSONFields(users[0]);
     }
 
-    async getUserByEmail(email) {
+    async getUserInfoByEmail(email) {
         const users = await this.db.query(`SELECT user_id, email, data FROM user WHERE email = ?`, [email]);
+        return _parseJSONFields(users[0]);
+    }
+
+    async getUserInfoById(id) {
+        const users = await this.db.query(`SELECT user_id, email, data FROM user WHERE user_id = ?`, [id]);
         return _parseJSONFields(users[0]);
     }
 
@@ -70,5 +75,10 @@ module.exports = class UserService {
             const points = (user.data.points || 0) + diff;
             await this.updateUserData(userId, Object.assign(user.data, { points }));
         }
+    }
+
+    async getStreakByUserId(userId) {
+        const user = await this.getUserById(userId);
+        return (user && user.data.streak) || 0;
     }
 }

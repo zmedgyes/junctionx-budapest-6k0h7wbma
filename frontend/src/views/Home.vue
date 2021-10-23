@@ -2,7 +2,7 @@
   <div class="home">
       <div class="titlebar">
         <VodaLogo size="40px" />
-        <div>Welcome back, XYZ!</div>
+        <div>Welcome back, Alex!</div>
       </div>
       <div class="homeContent">
         <div class="cardRow">

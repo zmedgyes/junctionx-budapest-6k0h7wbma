@@ -15,14 +15,17 @@ module.exports = {
         routeHelper.addAPIRoute('post', '/user/register', 'userController', 'addUser');
         routeHelper.addAPIRoute('post', '/user/delete', 'userController', 'deleteUser');
         routeHelper.addAPIRoute('post', '/user/list', 'userController', 'listUsers');
+        routeHelper.addAPIRoute('post', '/user/getUserInfo', 'userController', 'getUserInfo');
         routeHelper.addAPIRoute('post', '/user/getPoints', 'userController', 'getPoints');
 
         routeHelper.addAPIRoute('post', '/user/challenge/list', 'userChallengeController', 'getUserChallengesByUserId');
         routeHelper.addAPIRoute('post', '/user/challenge/create', 'userChallengeController', 'createUserChallenges');
         routeHelper.addAPIRoute('post', '/user/challenge/verify', 'userChallengeController', 'verifyUserChallenge');
+        routeHelper.addAPIRoute('post', '/user/challenge/getStreak', 'userChallengeController', 'getStreak');
 
         routeHelper.addAPIRoute('post', '/admin/getTreasureQR', 'userChallengeController', 'getTreasureQR');
         routeHelper.addAPIRoute('post', '/admin/startRush', 'userChallengeController', 'startRush');
+        routeHelper.addAPIRoute('post', '/admin/addGlobalQR', 'userChallengeController', 'addGlobalQR');
 
         // SHOP
         routeHelper.addAPIRoute('post', '/shop/listItems', 'shopController', 'listItems');
