@@ -37,7 +37,18 @@ const { CHALLENGE_TYPES } = require('./misc/types');
         },
         async (injector) => {
             const challengeService = injector.get('challengeService');
-            await challengeService.updateChallengeByType(CHALLENGE_TYPES.QR, {});
+            await challengeService.addChallenge(CHALLENGE_TYPES.QR, {});
+        },
+        async (injector) => {
+            const challengeService = injector.get('challengeService');
+            await challengeService.addChallenge(CHALLENGE_TYPES.STREAK, { dailyPoints: 1, maxPoints: 20 });
+
+            const userService = injector.get('userService');
+            const userChallengeService = injector.get('userChallengeService');
+            const users = await userService.listUsers();
+            for (let user of users) {
+                await userChallengeService.createUserChallenges(user.user_id, CHALLENGE_TYPES.STREAK);
+            }
         }
     ];
 
