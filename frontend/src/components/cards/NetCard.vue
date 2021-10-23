@@ -2,7 +2,7 @@
   <Card>
     <div class="cardTitle"><img src="/img/arrow.svg"/> Net</div>
     <div class="cardContent">
-      <div><span class="big">30.5 GB </span><span>of the 50 GB left</span></div>
+      <div><span class="big">{{dataBalance}} GB </span><span>of the 50 GB left</span></div>
       <div class="progress">
       <div class="progress-bar" role="progressbar" style="width: 40%"></div>
       </div>
@@ -14,7 +14,10 @@
 import Card from '../Card.vue'
 
 export default {
-  components: {Card}
+  components: {Card},
+  props:{
+    dataBalance:Number
+  }
 }
 </script>
 
