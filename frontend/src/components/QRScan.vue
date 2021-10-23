@@ -2,9 +2,11 @@
   <div class="qrscan">
     <!-- <p class="qrerror">{{ error }}</p>
     <p class="decode-result">Last result: <b>{{ result }}</b></p> -->
-
+<!-- qrcode-stream-wrapper -->
     <div class="qrwrapwrap">
-      <qrcode-stream @decode="onDecode" @init="onInit" />
+      <div class="qrStreamContainer">
+        <qrcode-stream @decode="onDecode" @init="onInit" />
+      </div>
       <div class="qrbottom" v-if="!loading" @click="emitCancel"><p>Cancel</p></div>
     </div>
   </div>
@@ -34,7 +36,7 @@ export default {
         // alert(result)
         this.$emit('onQRDecode',{success:true,QRContent:this.result})
       }else{
-        this.$emit('onQRDecode',{success:false,QRContent:null})
+        // this.$emit('onQRDecode',{success:false,QRContent:null})
       }
     },
 
@@ -86,6 +88,7 @@ export default {
 .qrwrapwrap {
   position: relative;
   padding: 50px;
+  background-color: rgba(220,220,220,0.75);
 }
 
 .qrscan >>> div:first-of-type {
@@ -105,5 +108,16 @@ export default {
   width: 100%;
   font-weight: 500;
   font-size: 20px;
+  background-color: var(--brand-color);
+}
+
+.qrcode-stream-wrapper{
+  height: 270px !important;
+}
+
+.qrStreamContainer{
+  /* border: dashed 4px red;
+  padding: 20px;
+  height: 325px !important; */
 }
 </style>

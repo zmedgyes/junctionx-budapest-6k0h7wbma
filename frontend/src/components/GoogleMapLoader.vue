@@ -118,7 +118,8 @@ export default {
 </script>
 <style scoped>
 .google-map{
-    width:100%;
-    height: 400px;
+    margin-bottom: -50px;
+    width:100vw;
+    height: 100vh;
 }
 </style>
