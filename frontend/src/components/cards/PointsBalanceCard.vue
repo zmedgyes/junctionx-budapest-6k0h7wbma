@@ -2,17 +2,27 @@
   <Card width="100%">
     <div class="cardTitle"><img src="/img/vodapoint.svg"/> Voda Point Balance</div>
     <div class="cardContent">
-      <div><span class="big">35</span> <span class="bigish">Pts</span></div>
+      <div><span class="big">{{ points }}</span> <span class="bigish">Pts</span></div>
       <div class="due">available until: 2021.12.11.</div>
     </div>
   </Card>
 </template>
 
 <script>
+import { User, USER_ID } from '../../misc/user'
+import { getPoints } from '../../remotes/remotes'
 import Card from '../Card.vue'
 
 export default {
-  components: {Card}
+  components: {Card},
+  data() {
+    return {
+      points: 35
+    }
+  },
+  async mounted() {
+    this.points = (await getPoints(USER_ID)).points;
+  }
 }
 </script>
 
