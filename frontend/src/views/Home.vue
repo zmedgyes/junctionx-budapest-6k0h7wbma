@@ -3,7 +3,7 @@
       <DailyBox @cancel="this.dailyOverlayOpen = false" v-if="dailyOverlayOpen" />
       <div class="titlebar">
         <VodaLogo size="40px" />
-        <div>Welcome back, Alex!</div>
+        <div>Welcome back, {{ userFirstName }}!</div>
       </div>
       <div class="homeContent">
         <div class="cardRow">
@@ -34,7 +34,8 @@ import TopUpCard from '../components/cards/TopUpCard.vue'
 import MapCard from '../components/cards/MapCard.vue'
 import DailyCard from '../components/cards/DailyCard.vue'
 import DailyBox from '../components/DailyBox.vue'
-import { User } from '../misc/user';
+import { USER_ID } from '../misc/user';
+import { getUserInfo } from '../remotes/remotes'
 
 export default {
     name: 'Home',
@@ -42,25 +43,22 @@ export default {
       TopUpCard, MapCard, DailyCard, DailyBox },
     data(){
         return{
+          dailyOverlayOpen: false,
           dataBalance:null,
+          userFirstName: 'Alex'
         }
     },
     async mounted(){
       this.$store.dispatch('activateLoader')
-      await User.initUser(1);
-      this.dataBalance = User.data.dataBalance
+      const user = await getUserInfo(USER_ID);
+      this.dataBalance = user.data.dataBalance
+      if(user.data.firstName) {
+        this.userFirstName = user.data.firstName;
+      }
       let randomLoadingTime = Math.floor((Math.random()*2000)+800);
       setTimeout(() =>{ 
         this.$store.dispatch('deActivateLoader')
        }, randomLoadingTime);
-    },
-  
-
-      
-    data() {
-      return {
-        dailyOverlayOpen: false
-      }
     },
     methods: {
       startDaily() {
