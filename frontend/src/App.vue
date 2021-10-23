@@ -16,6 +16,7 @@
 import Loader from './components/Loader.vue'
 import BottomMenu from './components/BottomMenu.vue'
 import { PollingService } from './misc/polling';
+import { User } from './misc/user';
 
 export default {
     name: 'App',
@@ -25,8 +26,11 @@ export default {
         return this.$store.state.isLoaderOn;
       },
     },
+    async beforeCreated() {
+      await User.initUser(1);
+    },
     async created(){
-      PollingService.startPolling(1000, 1);
+      PollingService.startPolling(1000, User.id);
     }
 }
 </script>
