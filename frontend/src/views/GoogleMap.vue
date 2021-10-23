@@ -6,8 +6,7 @@
     <QRScan v-if="!QRclosed"
      @closeQR="onCloseQR"
      @onQRDecode="onQRScan" />
-    <GoogleMapLoader ref="mapLoader" :userId="userId"
-    @onMarkerClick="startQrScanByMarker"/>
+    <GoogleMapLoader ref="mapLoader" @onMarkerClick="startQrScanByMarker"/>
     <!-- <button @click="$refs.mapLoader.removeMarker(2)">Remove second marker</button>
     <button @click="QRclosed=false">Open</button>
     <router-link tag="button" :to="{name : 'Home'}">Home</router-link> -->
@@ -18,6 +17,8 @@ import QRScan from '../components/QRScan.vue'
 import UserMessagee from '../components/UserMessagee.vue'
 import GoogleMapLoader from '../components/GoogleMapLoader.vue'
 import { verifyTreasure } from "../remotes/remotes"
+import { User } from "../misc/user"
+import { getCurrentPosition } from '../misc/geolocation'
 
 export default {
     name: 'GoogleMap',
@@ -26,7 +27,6 @@ export default {
     },
     data(){
         return{
-            userId: 1,
             QRclosed: true,
             userMessage:{
                 isVisible:false,
@@ -59,7 +59,8 @@ export default {
         },
         async handleScannedQr(payload){
             if (payload.success) {
-                const verifyQRResult = await verifyTreasure(this.userId,49.111,19.234,payload.QRContent)
+                const { lat, lng } = await getCurrentPosition();
+                const verifyQRResult = await verifyTreasure(User.Id,lat,lng,payload.QRContent)
                 if (verifyQRResult.success) {
   
                     if (this.recentMarkerInfo.markerId) {
