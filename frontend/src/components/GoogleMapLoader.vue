@@ -17,6 +17,7 @@ import mapConfig from "../constants/mapConfig"
 import { googleApiKey } from "../config/index"
 import { listChallenges } from "../remotes/remotes"
 import { createTreasueChallenges } from "../remotes/remotes"
+import { getCurrentPosition } from "../misc/geolocation"
 export default {
   props: {
     userId:Number
@@ -30,8 +31,7 @@ export default {
         mapConfig,
         googleApiKey,
         markers:{},
-        initialMarkers:[],
-        userCurrentPosition:{"lat":47.497913,"lng":19.040236},
+        initialMarkers:[]
     }
   },
   async mounted() {
@@ -91,9 +91,11 @@ export default {
         // this.markers[<marker id-ja>].markerElement.setMap(null)
     },
     async setInitialMarkers(){
+        const userCurrentPosition = await getCurrentPosition();
+        console.log(userCurrentPosition)
         let challangeList = await this._getMarkerChallenges();
         if (challangeList.length <= 1) {
-            await createTreasueChallenges(this.userId,this.userCurrentPosition.lat,this.userCurrentPosition.lng)
+            await createTreasueChallenges(this.userId,userCurrentPosition.lat,userCurrentPosition.lng)
             challangeList = await this._getMarkerChallenges();
         }
         challangeList.forEach(challange => {
@@ -104,7 +106,7 @@ export default {
             })
         });
         this.initialMarkers.push({
-            position: this.userCurrentPosition,
+            position: userCurrentPosition,
             type:"you-are-here",
             id:0
         })
