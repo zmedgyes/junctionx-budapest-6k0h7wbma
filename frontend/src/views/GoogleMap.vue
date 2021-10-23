@@ -7,9 +7,9 @@
      @onQRDecode="onQRScan" />
     <GoogleMapLoader ref="mapLoader" :userId="userId"
     @onMarkerClick="startQrScanByMarker"/>
-    <button @click="$refs.mapLoader.removeMarker(2)">Remove second marker</button>
+    <!-- <button @click="$refs.mapLoader.removeMarker(2)">Remove second marker</button>
     <button @click="QRclosed=false">Open</button>
-    <router-link tag="button" :to="{name : 'Home'}">Home</router-link>
+    <router-link tag="button" :to="{name : 'Home'}">Home</router-link> -->
 </template>
 
 <script>
@@ -47,7 +47,6 @@ export default {
             this.userMessage.isVisible = false
         },
         async onQRScan(payload){
-            console.log(payload)
             this.QRclosed = true
             await this.handleScannedQr(payload)
         },
@@ -60,7 +59,6 @@ export default {
         async handleScannedQr(payload){
             if (payload.success) {
                 const verifyQRResult = await verifyTreasure(this.userId,49.111,19.234,payload.QRContent)
-                console.log("verifyQRResult",verifyQRResult)
                 if (verifyQRResult.success) {
   
                     if (this.recentMarkerInfo.markerId) {
