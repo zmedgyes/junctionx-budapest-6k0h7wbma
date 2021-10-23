@@ -1,3 +1,5 @@
+const { SHOP_ITEM_TYPES } = require("../misc/types");
+
 module.exports = class ShopController {
     static get $inject() { return ['shopService', 'userService']; }
 
@@ -29,9 +31,21 @@ module.exports = class ShopController {
         const userPoints = await this.userService.getPointsByUserId(user_id);
         const hasEnoughPoints = userPoints >= item.price;
         if(hasEnoughPoints) {
+            await this._applyShopEffects(user_id, item);
             await this.userService.addPointsByUserId(user_id, 0 - item.price);
         }
 
         res.json({ success: hasEnoughPoints });
+    }
+
+    async _applyShopEffects(user_id, item) {
+        const user = await this.userService.getUserById(user_id);
+        if(!user) {
+            return;
+        }
+        if(item.data.type === SHOP_ITEM_TYPES.DATA) {
+            const dataBalance = (user.data.dataBalance || 0) + item.data.balance;
+            await this.userService.updateUserData(user_id, Object.assign(user.data, { dataBalance }));
+        }
     }
 }
