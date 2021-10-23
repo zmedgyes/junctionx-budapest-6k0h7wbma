@@ -21,7 +21,7 @@
         <div class="cardRow">
           <router-link class="maplink" tag="button" :to="{name : 'GoogleMap'}"><MapCard /></router-link>
         </div>
-        <div class="toShop">
+        <div class="toShop" :style="{display: 'none'}">
           <router-link :to="{name: 'PointShop'}">Exchange Voda Points</router-link>
         </div>
       </div>
