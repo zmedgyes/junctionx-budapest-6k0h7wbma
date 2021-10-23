@@ -92,7 +92,6 @@ export default {
     },
     async setInitialMarkers(){
         const userCurrentPosition = await getCurrentPosition();
-        console.log(userCurrentPosition)
         let challangeList = await this._getMarkerChallenges();
         if (challangeList.length <= 1) {
             await createTreasueChallenges(this.userId,userCurrentPosition.lat,userCurrentPosition.lng)
