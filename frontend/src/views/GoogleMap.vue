@@ -1,4 +1,5 @@
 <template>
+    <div class="designLineTop"></div>
     <UserMessagee v-if="userMessage.isVisible"
     :userMessageInfo="userMessage"
     @closeUserMessage="closeMessage"/>
@@ -94,5 +95,15 @@ export default {
 #map {
   height: 400px;
   width: 100%;
+}
+.designLineTop{
+    position: fixed;
+    width: 100vw;
+    height: 4px;
+    top:0;
+    margin: 0;
+    padding: 0;
+    background-color: var(--brand-color);
+    z-index: 6000;
 }
 </style>
