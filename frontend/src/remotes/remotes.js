@@ -29,6 +29,10 @@ export async function verifyQR(userId, qr) {
     return postData('/user/challenge/verify', { user_id: userId, type: 'QR', params: {  qr } });
 }
 
+export async function verifyQuiz(userId, challengeId, answer) {
+    return postData('/user/challenge/verify', { user_id: userId, type: 'QUIZ', params: { id: challengeId, answer } });
+}
+
 export async function getStreak(userId) {
     return postData('/user/challenge/getStreak', { user_id: userId });
 }

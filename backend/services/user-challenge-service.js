@@ -102,6 +102,13 @@ module.exports = class UserChallengeService {
                 lastLoginTime = now;
             }
             await this.userService.updateUserData(userId, Object.assign(user.data, { streak, lastLoginTime }));
+        } else if (type === CHALLENGE_TYPES.QUIZ) {
+            for (let userChallenge of userChallenges) {
+                if (userChallenge.id === params.id && userChallenge.params.answer === params.answer) {
+                    await this.deleteUserChallenge(userChallenge.id);
+                    results.push({ points: userChallenge.params.points });
+                }
+            }
         }
         return results;
     }
@@ -121,6 +128,8 @@ module.exports = class UserChallengeService {
             await this._addUserChallenge(userId, type, config);
         } else if (type === CHALLENGE_TYPES.STREAK) {
             await this._addUserChallenge(userId, type);
+        } else if (type === CHALLENGE_TYPES.QUIZ) {
+            await this._addUserChallenge(userId, type, config);
         }
     }
 
