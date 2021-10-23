@@ -19,9 +19,9 @@ import { listChallenges } from "../remotes/remotes"
 import { createTreasueChallenges } from "../remotes/remotes"
 import { getCurrentPosition } from "../misc/geolocation"
 import { EventBus } from "../misc/event-bus"
+import { User } from "../misc/user"
 export default {
   props: {
-    userId:Number
   },
   emits: ["onMarkerClick"],
   data() {
@@ -96,7 +96,7 @@ export default {
         const userCurrentPosition = await getCurrentPosition();
         let challangeList = await this._getMarkerChallenges();
         if (challangeList.length <= 1) {
-            await createTreasueChallenges(this.userId,userCurrentPosition.lat,userCurrentPosition.lng)
+            await createTreasueChallenges(User.id,userCurrentPosition.lat,userCurrentPosition.lng)
             challangeList = await this._getMarkerChallenges();
         }
         challangeList.forEach(challange => {
@@ -113,7 +113,7 @@ export default {
         })
     },
     async _getMarkerChallenges() {
-      const challangeList = await listChallenges(this.userId);
+      const challangeList = await listChallenges(User.id);
       return challangeList.filter(challange => challange.challenge_type === 'TREASURE' || challange.challenge_type === 'RUSH');
     },
     _rushCompleted() {
