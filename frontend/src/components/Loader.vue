@@ -18,7 +18,7 @@ export default {
         height: 100vh;
         width: 100vw;
         background-color: rgba(111,111,111,.5);
-        z-index: 20;
+        z-index: 20000;
     }
     .loader-img{
         position: fixed;

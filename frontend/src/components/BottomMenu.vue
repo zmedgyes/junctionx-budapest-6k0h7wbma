@@ -1,6 +1,7 @@
 <template>
 
 <div class="bmenuContainer">
+  <DailyBox @cancel="this.dailyIsOpen = false" v-if="dailyIsOpen" />
     <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
     viewBox="0 0 1125 250" style="enable-background:new 0 0 1125 250;" xml:space="preserve">
     <g>
@@ -149,12 +150,14 @@
             />
         </div>
         <div class="col">
+          <div @click="openDaily">
           <OffcanvasCard
             mainText="Daily Challange"
             subText="Do the Daily Challange and Earn VodPoints"
             icon="daily"
             initStyle="red"
           />
+          </div>
         </div>
       </div>
     </div>
@@ -166,19 +169,27 @@
 <script>
 import { getStreak } from "../remotes/remotes"
 import OffcanvasCard from "../components/cards/OffcanvasCard.vue"
+import DailyBox from "../components/DailyBox.vue"
 export default {
     components: {
-        OffcanvasCard
+        OffcanvasCard, DailyBox
     },
     data () {
     return {
-      streak:0
+      streak:0,
+      dailyIsOpen: false
     }
   },
   async mounted(){
     const streakresult = await getStreak(1)
     if (streakresult.streak) {this.streak = streakresult.streak}
     else{this.streak = 1}
+  },
+  methods: {
+    openDaily() {
+      console.log("openDail")
+      this.dailyIsOpen = true
+    }
   }
 };
 </script>
