@@ -6,13 +6,13 @@ module.exports = class UserController {
 
     async addUser(req, res, next) {
         const { email, password } = req.body;
-        const existingUser = await this.userService.getUserByEmail(email);
+        const existingUser = await this.userService.getUserInfoByEmail(email);
         if (existingUser) {
             res.status(400).send('user already exists');
             return;
         }
         await this.userService.addUser(email, password);
-        const newUser = await this.userService.getUserByEmail(email);
+        const newUser = await this.userService.getUserInfoByEmail(email);
         res.json(newUser);
     }
 
@@ -25,6 +25,12 @@ module.exports = class UserController {
     async listUsers(req, res, next) {
         const users = await this.userService.listUsers();
         res.json(users)
+    }
+
+    async getUserInfo(req, res, next) {
+        const { user_id } = req.body;
+        const user = await this.userService.getUserInfoById(user_id);
+        res.json(user)
     }
 
     async getPoints(req, res, next) {
