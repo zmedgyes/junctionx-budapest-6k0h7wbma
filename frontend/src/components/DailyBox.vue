@@ -32,7 +32,7 @@ export default {
       eval("window.location.href = 'https://www.vodafone.hu/shop/okostelefonok'")
     },
     submitClick() {
-      if ((this.answer) && (this.answer.includes("blue") || this.answer.includes("black") )) {
+      if ((this.answer) && (this.answer.toUpperCase().includes("BLUE") || this.answer.toUpperCase().includes("BLACK") )) {
         this.icon = 'success'
         this.mainMessage = 'Correct Answer'
         this.subMessage = "You've earned 10 Voda Points."
@@ -56,6 +56,7 @@ export default {
 
 <style scoped>
 .dailybox {
+  top: 0;
   display: block;
   position: fixed;
   height: 100vh;
