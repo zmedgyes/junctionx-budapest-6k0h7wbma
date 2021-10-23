@@ -51,7 +51,7 @@ export default {
     async mounted(){
       this.$store.dispatch('activateLoader')
       const user = await getUserInfo(USER_ID);
-      this.dataBalance = user.data.dataBalance.toFixed(1)
+      this.dataBalance = Number(user.data.dataBalance.toFixed(2))
       if(user.data.firstName) {
         this.userFirstName = user.data.firstName;
       }
