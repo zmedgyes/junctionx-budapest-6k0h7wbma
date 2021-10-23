@@ -57,6 +57,7 @@ export default {
   data() { return {
     confirmOpen: false
   }},
+  emits: ["reloadNeeded"],
   methods: {
     open() {
       this.confirmOpen = true
@@ -65,6 +66,7 @@ export default {
       const { success } = await buyShopItem(USER_ID, this.offerId);
       console.log('TODO: BUY FAILED');
       this.confirmOpen = false
+      this.$emit("reloadNeeded")
     }
   }
 }
