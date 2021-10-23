@@ -51,7 +51,7 @@ export default {
         if (mapCenter) {
             this.mapConfig.center = mapCenter
         }
-        
+
         this.map = new this.google.maps.Map(mapContainer, this.mapConfig)
         this.initialMarkers.forEach(marker => {
             let actualMarkerIcon;
@@ -78,6 +78,12 @@ export default {
             this.google.maps.event.addListener(actualMarker,'click',()=>{this.scanMarkerQR(marker.id,marker.position)})
             this.markers[marker.id] = {position:marker.position, markerElement:actualMarker}
 
+            const bounds = new this.google.maps.LatLngBounds();
+            Object.values(this.markers).forEach((markerRecord) => {
+              
+              bounds.extend(new this.google.maps.LatLng(markerRecord.position.lat, markerRecord.position.lng));
+            });
+            this.map.fitBounds(bounds);
         });
         //Így lehet markert törölni a térképről
         // this.markers[2].markerElement.setMap(null)
@@ -85,11 +91,10 @@ export default {
         // this.markers[<marker id-ja>].markerElement.setMap(null)
     },
     async setInitialMarkers(){
-        let challangeList;
-        challangeList = await listChallenges(this.userId)
-        if (!challangeList.length) {
+        let challangeList = await this._getMarkerChallenges();
+        if (challangeList.length <= 1) {
             await createTreasueChallenges(this.userId,this.userCurrentPosition.lat,this.userCurrentPosition.lng)
-            challangeList = await listChallenges(this.userId)
+            challangeList = await this._getMarkerChallenges();
         }
         challangeList.forEach(challange => {
             this.initialMarkers.push({
@@ -104,11 +109,17 @@ export default {
             id:0
         })
     },
+    async _getMarkerChallenges() {
+      const challangeList = await listChallenges(this.userId);
+      return challangeList.filter(challange => challange.challenge_type === 'TREASURE' || challange.challenge_type === 'RUSH');
+    }, 
     scanMarkerQR(markerId, markerPosition){
       this.$emit('onMarkerClick',{markerId,markerPosition})
     },
     removeMarker(markerId){
         this.markers[markerId].markerElement.setVisible(false)
+        this.markers[markerId].markerElement.setMap(null)
+        delete this.markers[markerId]
     }
   },
 //   async mounted(){
