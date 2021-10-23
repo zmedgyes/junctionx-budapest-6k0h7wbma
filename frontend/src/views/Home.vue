@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+      <DailyBox @cancel="this.dailyOverlayOpen = false" v-if="dailyOverlayOpen" />
       <div class="titlebar">
         <VodaLogo size="40px" />
         <div>Welcome back, Alex!</div>
@@ -10,7 +11,7 @@
           <BillCard />
           <div class="topdaily">
             <TopUpCard />
-            <DailyCard />
+            <DailyCard @click="startDaily" />
           </div>
         </div>
         <h2>
@@ -31,20 +32,33 @@ import BillCard from '../components/cards/BillCard.vue'
 import TopUpCard from '../components/cards/TopUpCard.vue'
 import MapCard from '../components/cards/MapCard.vue'
 import DailyCard from '../components/cards/DailyCard.vue'
+import DailyBox from '../components/DailyBox.vue'
 
 export default {
     name: 'Home',
     components: { VodaLogo, Card, NetCard, BillCard,
-      TopUpCard, MapCard, DailyCard },
+      TopUpCard, MapCard, DailyCard, DailyBox },
     mounted(){
       this.$store.dispatch('activateLoader')
       let randomLoadingTime = Math.floor((Math.random()*2000)+800);
       setTimeout(() =>{ 
         this.$store.dispatch('deActivateLoader')
        }, randomLoadingTime);
-    }
-  }
+    },
+  
 
+      
+    data() {
+      return {
+        dailyOverlayOpen: false
+      }
+    },
+    methods: {
+      startDaily() {
+        this.dailyOverlayOpen = true
+      }
+    }
+}
 </script>
 <style scoped>
 .cardRow {
