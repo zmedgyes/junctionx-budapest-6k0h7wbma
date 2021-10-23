@@ -1,7 +1,7 @@
 const { getInjector } = require('./config/injector-config');
 const { initDB } = require('./config/db-config');
 const { USER_ROLES } = require('./misc/auth-util');
-const { CHALLENGE_TYPES, SHOP_ITEM_TYPES } = require('./misc/types');
+const { CHALLENGE_TYPES, SHOP_ITEM_TYPES, DEMO_LAT, DEMO_LNG } = require('./misc/types');
 
 (async () => {
     const injector = getInjector();
@@ -59,6 +59,14 @@ const { CHALLENGE_TYPES, SHOP_ITEM_TYPES } = require('./misc/types');
             const users = await userService.listUsers();
             for (let user of users) {
                 await userService.updateUserData(user.user_id, Object.assign(user.data, { dataBalance: 20.5 }));
+            }
+        },
+        async (injector) => {
+            const userService = injector.get('userService');
+            const userChallengeService = injector.get('userChallengeService');
+            const users = await userService.listUsers();
+            for (let user of users) {
+                await userChallengeService._addUserChallenge(user.user_id, CHALLENGE_TYPES.TREASURE, { lat: DEMO_LAT, lng: DEMO_LNG });
             }
         }
     ];

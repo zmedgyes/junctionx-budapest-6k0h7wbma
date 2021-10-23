@@ -1,4 +1,4 @@
-const { CHALLENGE_TYPES } = require('../misc/types');
+const { CHALLENGE_TYPES, DEMO_QR, DEMO_LAT, DEMO_LNG } = require('../misc/types');
 const { shuffleArray, isNearby, isSameDay, isNextDay } = require('../misc/util');
 const crypto = require('crypto');
 
@@ -48,7 +48,9 @@ module.exports = class UserChallengeService {
             for(let userChallenge of userChallenges) {
                 const qr = this.getQRToTreasure(userChallenge.params.lat, userChallenge.params.lng);
                 if(qr === params.qr) {
-                    await this.deleteUserChallenge(userChallenge.id );
+                    if (qr !== this.getQRToTreasure(DEMO_LAT, DEMO_LNG)) {
+                        await this.deleteUserChallenge(userChallenge.id );
+                    }
                     results.push({ points: challenge.params.points });
                 }
             }
@@ -77,7 +79,9 @@ module.exports = class UserChallengeService {
         } else if (type === CHALLENGE_TYPES.QR) {
             for (let userChallenge of userChallenges) {
                 if(userChallenge.params.qr === params.qr) {
-                    await this.deleteUserChallenge(userChallenge.id);
+                    if (userChallenge.params.qr !== DEMO_QR) {
+                        await this.deleteUserChallenge(userChallenge.id);
+                    }
                     results.push({ points: userChallenge.params.points });
                 }
             }
