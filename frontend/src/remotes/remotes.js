@@ -33,6 +33,10 @@ export async function getStreak(userId) {
     return postData('/user/challenge/getStreak', { user_id: userId });
 }
 
+export async function getUserInfo(userId) {
+    return postData('/user/getUserInfo', { user_id: userId });
+}
+
 export async function getPoints(userId) {
     return postData('/user/getPoints', { user_id: userId });
 }

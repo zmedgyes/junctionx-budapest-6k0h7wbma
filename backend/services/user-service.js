@@ -32,8 +32,13 @@ module.exports = class UserService {
         return _parseJSONFields(users[0]);
     }
 
-    async getUserByEmail(email) {
+    async getUserInfoByEmail(email) {
         const users = await this.db.query(`SELECT user_id, email, data FROM user WHERE email = ?`, [email]);
+        return _parseJSONFields(users[0]);
+    }
+
+    async getUserInfoById(id) {
+        const users = await this.db.query(`SELECT user_id, email, data FROM user WHERE user_id = ?`, [id]);
         return _parseJSONFields(users[0]);
     }
 
