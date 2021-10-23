@@ -1,6 +1,10 @@
 <template>
 
   <div class="userMessageContainer">
+  <audio id="myAudio">
+    <!-- <source src="horse.ogg" type="audio/ogg"> -->
+    <source src="audio/Yii.mp3" type="audio/mpeg">
+  </audio>
     <img v-if="this.userMessageInfo.icon =='success'" class="confetti" src="img/smaller.gif" alt="">
     <div class="containerItems">
       <div class="statusIconContainer">
@@ -12,8 +16,6 @@
         <button @click="emitClose" type="button" class="btn btn-light btn-lg closeButton">Close</button>
       </div>
     </div>
-
-    
   </div>
 </template>
 
@@ -40,6 +42,8 @@ export default {
     switch (this.userMessageInfo.icon) {
       case "success":
         this.icon = `${this.imgStaticPath}/icon_success_white.svg`;
+        var x = document.getElementById("myAudio");
+        x.play(); 
         break;
       case "error":
         this.icon = `${this.imgStaticPath}/icon_error_white.svg`;
