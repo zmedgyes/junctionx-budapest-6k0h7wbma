@@ -21,7 +21,7 @@ export default {
   props: {
     userId:Number
   },
-
+  emits: ["onMarkerClick"],
   data() {
     return {
         google: null,
@@ -75,6 +75,7 @@ export default {
                 map: this.map,
                 icon:{ url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(actualMarkerIcon), scaledSize: new this.google.maps.Size(actualMarkerSize, actualMarkerSize) }
             });
+            this.google.maps.event.addListener(actualMarker,'click',()=>{this.scanMarkerQR(marker.id,marker.position)})
             this.markers[marker.id] = {position:marker.position, markerElement:actualMarker}
 
         });
@@ -102,6 +103,9 @@ export default {
             type:"you-are-here",
             id:0
         })
+    },
+    scanMarkerQR(markerId, markerPosition){
+      this.$emit('onMarkerClick',{markerId,markerPosition})
     },
     removeMarker(markerId){
         this.markers[markerId].markerElement.setVisible(false)
