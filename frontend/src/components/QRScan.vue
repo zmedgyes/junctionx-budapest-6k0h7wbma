@@ -4,7 +4,7 @@
     <p class="decode-result">Last result: <b>{{ result }}</b></p> -->
 <!-- qrcode-stream-wrapper -->
     <div class="qrwrapwrap">
-      <div class="qrStreamContainer">
+      <div :class="{_loading : loading}" class="qrStreamContainer">
         <qrcode-stream @decode="onDecode" @init="onInit" />
       </div>
       <div class="qrbottom" v-if="!loading" @click="emitCancel"><p>Cancel</p></div>
@@ -42,6 +42,7 @@ export default {
 
     async onInit (promise) {
       this.loading = true
+      this.$store.dispatch('activateLoader')
       try {
         await promise
       } catch (error) {
@@ -63,6 +64,7 @@ export default {
           this.error = `ERROR: Camera error (${error.name})`;
         }
       } finally {
+        this.$store.dispatch('deActivateLoader')
         this.loading = false
       }
     }
@@ -71,6 +73,9 @@ export default {
 </script>
 
 <style scoped>
+._loading {
+  display: none;
+}
 .qrerror {
   font-weight: bold;
   color: red;
