@@ -7,6 +7,12 @@
       </div>
       <div class="homeContent">
         <div class="cardRow">
+          <Card
+          bg="#f59999" style="text-align:center" class="streak-notification" v-if="isNotificationOn">
+            <span style="color:white; font-weight:bold">1st day streak is pretty nice!</span>
+          </Card>
+        </div>
+        <div class="cardRow">
           <NetCard
           :dataBalance="dataBalance" />
           <BillCard />
@@ -48,7 +54,8 @@ export default {
         return{
           dailyOverlayOpen: false,
           dataBalance:null,
-          userFirstName: 'Alex'
+          userFirstName: 'Alex',
+          isNotificationOn:true
         }
     },
     async mounted(){
@@ -58,19 +65,30 @@ export default {
       if(user.data.firstName) {
         this.userFirstName = user.data.firstName;
       }
-      let randomLoadingTime = Math.floor((Math.random()*2000)+800);
+      let randomLoadingTime = Math.floor((Math.random()*1300)+400);
       setTimeout(() =>{ 
         this.$store.dispatch('deActivateLoader')
        }, randomLoadingTime);
+       setTimeout(()=>{
+         this.isNotificationOn = false
+        }, 3000);
     },
     methods: {
       startDaily() {
         this.dailyOverlayOpen = true
       }
+
     }
 }
 </script>
 <style scoped>
+.notification{
+    z-index: 5000;
+    position: fixed;
+    top: 1%;
+    left: 2%;
+    width: 96vw;
+}
 .cardRow {
   display: flex;
   flex-wrap: wrap;
