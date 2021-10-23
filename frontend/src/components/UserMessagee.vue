@@ -2,14 +2,17 @@
 
   <div class="userMessageContainer">
     <img v-if="this.userMessageInfo.icon =='success'" class="confetti" src="img/smaller.gif" alt="">
-    <div class="statusIconContainer">
-      <img class="statusIcon" :src="icon" alt="">
+    <div class="containerItems">
+      <div class="statusIconContainer">
+        <img class="statusIcon" :src="icon" alt="">
+      </div>
+      <div class="mainMessage messageText">{{mainMessage}}</div>
+      <div class="subMessage messageText">{{subMessage}}</div>
+      <div class="buttonContainer">
+        <button @click="emitClose" type="button" class="btn btn-light btn-lg closeButton">Close</button>
+      </div>
     </div>
-    <div class="mainMessage messageText">{{mainMessage}}</div>
-    <div class="subMessage messageText">{{subMessage}}</div>
-    <div class="buttonContainer">
-      <button @click="emitClose" type="button" class="btn btn-light btn-lg closeButton">Close</button>
-    </div>
+
     
   </div>
 </template>
@@ -57,6 +60,9 @@ export default {
       position:"fixed";
       background: rgb(153,0,0);
       background: linear-gradient(45deg, rgba(153,0,0,1) 0%, rgba(230,0,0,1) 100%);
+  }
+  .containerItems{
+    padding-top: 85px;
   }
   .statusIconContainer img {
       margin-left: auto;
