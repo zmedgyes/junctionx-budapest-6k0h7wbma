@@ -1,6 +1,6 @@
 async function postData(url = '', data = {}) {
     // Default options are marked with *
-    const baseUrl = process.env.BASE_URL || window.origin || 'http://localhost:3000'
+    const baseUrl = eval("window.origin")
     const response = await fetch(`${baseUrl}/api${url}`, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
