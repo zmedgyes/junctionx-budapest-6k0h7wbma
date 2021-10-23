@@ -6,7 +6,8 @@
       </div>
       <div class="homeContent">
         <div class="cardRow">
-          <NetCard />
+          <NetCard
+          :dataBalance="dataBalance" />
           <BillCard />
           <div class="topdaily">
             <TopUpCard />
@@ -31,13 +32,21 @@ import BillCard from '../components/cards/BillCard.vue'
 import TopUpCard from '../components/cards/TopUpCard.vue'
 import MapCard from '../components/cards/MapCard.vue'
 import DailyCard from '../components/cards/DailyCard.vue'
+import { User } from '../misc/user';
 
 export default {
     name: 'Home',
     components: { VodaLogo, Card, NetCard, BillCard,
       TopUpCard, MapCard, DailyCard },
-    mounted(){
+    data(){
+        return{
+          dataBalance:null,
+        }
+    },
+    async mounted(){
       this.$store.dispatch('activateLoader')
+      await User.initUser(1);
+      this.dataBalance = User.data.dataBalance
       let randomLoadingTime = Math.floor((Math.random()*2000)+800);
       setTimeout(() =>{ 
         this.$store.dispatch('deActivateLoader')
