@@ -80,6 +80,7 @@ export default {
             let actualMarker = new this.google.maps.Marker({
                 position: marker.position,
                 map: this.map,
+                animation: (marker.type === 'rush') ? this.google.maps.Animation.BOUNCE : undefined,
                 icon:{ url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(actualMarkerIcon), scaledSize: new this.google.maps.Size(actualMarkerSize, actualMarkerSize) }
             });
             if (marker.type == "treasure") {
