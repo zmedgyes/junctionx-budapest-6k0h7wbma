@@ -25,6 +25,18 @@ export async function verifyTreasure(userId, lat, lng, qr) {
     return postData('/user/challenge/verify', { user_id: userId, type: 'TREASURE', params: { lat, lng, qr } });
 }
 
+export async function verifyQR(userId, qr) {
+    return postData('/user/challenge/verify', { user_id: userId, type: 'QR', params: {  qr } });
+}
+
+export async function getStreak(userId) {
+    return postData('/user/challenge/getStreak', { user_id: userId });
+}
+
+export async function getUserInfo(userId) {
+    return postData('/user/getUserInfo', { user_id: userId });
+}
+
 export async function getPoints(userId) {
     return postData('/user/getPoints', { user_id: userId });
 }

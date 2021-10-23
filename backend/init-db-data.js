@@ -1,7 +1,7 @@
 const { getInjector } = require('./config/injector-config');
 const { initDB } = require('./config/db-config');
 const { USER_ROLES } = require('./misc/auth-util');
-const { CHALLENGE_TYPES } = require('./misc/types');
+const { CHALLENGE_TYPES, SHOP_ITEM_TYPES, DEMO_LAT, DEMO_LNG } = require('./misc/types');
 
 (async () => {
     const injector = getInjector();
@@ -33,6 +33,40 @@ const { CHALLENGE_TYPES } = require('./misc/types');
             const users = await userService.listUsers();
             for(let user of users){
                 await userChallengeService.createUserChallenges(user.user_id, CHALLENGE_TYPES.RANDOM);
+            }
+        },
+        async (injector) => {
+            const challengeService = injector.get('challengeService');
+            await challengeService.addChallenge(CHALLENGE_TYPES.QR, {});
+        },
+        async (injector) => {
+            const challengeService = injector.get('challengeService');
+            await challengeService.addChallenge(CHALLENGE_TYPES.STREAK, { dailyPoints: 1, maxPoints: 20 });
+
+            const userService = injector.get('userService');
+            const userChallengeService = injector.get('userChallengeService');
+            const users = await userService.listUsers();
+            for (let user of users) {
+                await userChallengeService.createUserChallenges(user.user_id, CHALLENGE_TYPES.STREAK);
+            }
+        },
+        async (injector) => {
+            const shopService = injector.get('shopService');
+            await shopService.addItem(10, { name: 'DATA_100MB', type: SHOP_ITEM_TYPES.DATA, balance: 0.1 });
+            await shopService.addItem(90, { name: 'DATA_1GB', type: SHOP_ITEM_TYPES.DATA, balance: 1 });
+
+            const userService = injector.get('userService');
+            const users = await userService.listUsers();
+            for (let user of users) {
+                await userService.updateUserData(user.user_id, Object.assign(user.data, { dataBalance: 20.5 }));
+            }
+        },
+        async (injector) => {
+            const userService = injector.get('userService');
+            const userChallengeService = injector.get('userChallengeService');
+            const users = await userService.listUsers();
+            for (let user of users) {
+                await userChallengeService._addUserChallenge(user.user_id, CHALLENGE_TYPES.TREASURE, { lat: DEMO_LAT, lng: DEMO_LNG });
             }
         }
     ];
