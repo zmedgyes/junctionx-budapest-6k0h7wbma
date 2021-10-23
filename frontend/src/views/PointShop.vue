@@ -1,31 +1,32 @@
 <template>
     <div class="pointshop">
-        <div class="shopnav">
-            <div class="sbox sinv"></div>
-            <div class="stitle"><h2>Exchange Voda Points</h2></div>
-            <!-- <div class="sclose sbox"></div> -->
-            <router-link class="sclose sbox" tag="div" :to="{name : 'Home'}" />
-        </div>
+        <ShopNav />
         <div>
             <PointsBalanceCard />
             <Tabs>
-                <Tab name="SMS">
-                    SMS
-                </Tab>
                 <Tab name="Minutes">
-                    <OfferCard imgSrc="/img/call.svg" />
+                    <OfferCard offer="60 minutes, single use" cost="190" amount="60 minutes" imgSrc="/img/call.svg" />
+                    <OfferCard offer="45 minutes, single use" cost="165" amount="45 minutes" imgSrc="/img/call.svg" />
+                    <OfferCard offer="30 minutes, single use" cost="125" amount="30 minutes" imgSrc="/img/call.svg" />
+                    <OfferCard offer="10 minutes, single use" cost="50" amount="10 minutes" imgSrc="/img/call.svg" />
                 </Tab>
                 <Tab name="Data">
-                    Data
+                    <OfferCard offer="5 GB data, roaming capable" cost="3590" amount="5 GB" imgSrc="/img/arrow.svg" />
+                    <OfferCard offer="500 MB data, roaming capable" cost="990" amount="500 MB" imgSrc="/img/arrow.svg" />
+                    <OfferCard offer="100 MB data" cost="210" amount="100 MB" imgSrc="/img/arrow.svg" />
+                    <OfferCard offer="30 MB data" cost="85" amount="30 MB" imgSrc="/img/arrow.svg" />
+                </Tab>
+                <Tab name="SMS">
+                    <div class="nooffers">No offers of this kind.</div>
                 </Tab>
                 <Tab name="MMS">
-                    MMS
+                    <div class="nooffers">No offers of this kind.</div>
                 </Tab>
                 <Tab name="Roaming">
-                    Roaming
+                    <div class="nooffers">No offers of this kind.</div>
                 </Tab>
                 <Tab name="1 Month Pass">
-                    Month Pass
+                    <div class="nooffers">No offers of this kind.</div>
                 </Tab>
             </Tabs>
         </div>
@@ -33,6 +34,7 @@
 </template>
 
 <script>
+import ShopNav from '../components/ShopNav.vue'
 import Card from '../components/Card.vue'
 import PointsBalanceCard from '../components/cards/PointsBalanceCard.vue'
 import OfferCard from '../components/cards/OfferCard.vue'
@@ -40,7 +42,7 @@ import {Tabs, Tab} from 'vue3-tabs-component';
 
 export default {
     name: 'PointShop',
-    components: { Card, PointsBalanceCard, Tab, Tabs, OfferCard },
+    components: { Card, PointsBalanceCard, Tab, Tabs, OfferCard, ShopNav },
     data(){
         return{
         }
@@ -53,16 +55,10 @@ export default {
 </script>
 
 <style scoped>
-.shopnav {
-    height: 50px;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px;
+.nooffers {
+    padding: 30px;
+    font-size: 18px;
 }
-
 .stitle {
     font-weight: 500;
 }
