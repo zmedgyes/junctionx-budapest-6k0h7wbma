@@ -35,8 +35,16 @@ import DailyCard from '../components/cards/DailyCard.vue'
 export default {
     name: 'Home',
     components: { VodaLogo, Card, NetCard, BillCard,
-      TopUpCard, MapCard, DailyCard }
-}
+      TopUpCard, MapCard, DailyCard },
+    mounted(){
+      this.$store.dispatch('activateLoader')
+      let randomLoadingTime = Math.floor((Math.random()*2000)+800);
+      setTimeout(() =>{ 
+        this.$store.dispatch('deActivateLoader')
+       }, randomLoadingTime);
+    }
+  }
+
 </script>
 <style scoped>
 .cardRow {

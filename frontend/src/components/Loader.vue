@@ -25,6 +25,9 @@ export default {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        height: 200px;
+        height: 225px;
+    }
+    .loader-img img{
+        height: 225px;
     }
 </style>
