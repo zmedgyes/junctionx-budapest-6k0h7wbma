@@ -23,6 +23,7 @@ module.exports = {
 
         routeHelper.addAPIRoute('post', '/admin/getTreasureQR', 'userChallengeController', 'getTreasureQR');
         routeHelper.addAPIRoute('post', '/admin/startRush', 'userChallengeController', 'startRush');
+        routeHelper.addAPIRoute('post', '/admin/addGlobalQR', 'userChallengeController', 'addGlobalQR');
 
         // SHOP
         routeHelper.addAPIRoute('post', '/shop/listItems', 'shopController', 'listItems');

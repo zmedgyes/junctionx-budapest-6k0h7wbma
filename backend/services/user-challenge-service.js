@@ -72,6 +72,13 @@ module.exports = class UserChallengeService {
                     results.push({ points: challenge.params.points });
                 }
             }
+        } else if (type === CHALLENGE_TYPES.QR) {
+            for (let userChallenge of userChallenges) {
+                if(userChallenge.params.qr === params.qr) {
+                    await this.deleteUserChallenge(userChallenge.id);
+                    results.push({ points: userChallenge.params.points });
+                }
+            }
         }
         return results;
     }
@@ -87,6 +94,8 @@ module.exports = class UserChallengeService {
         }
         else if (type === CHALLENGE_TYPES.RANDOM) {
             await this._addUserChallenge(userId, type);
+        } else if (type === CHALLENGE_TYPES.QR) {
+            await this._addUserChallenge(userId, type, config);
         }
     }
 
