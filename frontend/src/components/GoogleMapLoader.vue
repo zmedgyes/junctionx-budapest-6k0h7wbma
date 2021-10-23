@@ -17,9 +17,11 @@ import mapConfig from "../constants/mapConfig"
 import { googleApiKey } from "../config/index"
 import { listChallenges } from "../remotes/remotes"
 import { createTreasueChallenges } from "../remotes/remotes"
+import { getCurrentPosition } from "../misc/geolocation"
+import { EventBus } from "../misc/event-bus"
+import { User } from "../misc/user"
 export default {
   props: {
-    userId:Number
   },
   emits: ["onMarkerClick"],
   data() {
@@ -30,8 +32,7 @@ export default {
         mapConfig,
         googleApiKey,
         markers:{},
-        initialMarkers:[],
-        userCurrentPosition:{"lat":47.497213,"lng":19.040236},
+        initialMarkers:[]
     }
   },
   async mounted() {
@@ -41,6 +42,7 @@ export default {
     })
     this.google = googleMapApi
     this.initializeMap()
+    EventBus.$on('rushCompleted', this._rushCompleted.bind(this));
   },
 
   methods: {
@@ -51,7 +53,7 @@ export default {
         if (mapCenter) {
             this.mapConfig.center = mapCenter
         }
-        
+
         this.map = new this.google.maps.Map(mapContainer, this.mapConfig)
         this.initialMarkers.forEach(marker => {
             let actualMarkerIcon;
@@ -84,8 +86,14 @@ export default {
               this.google.maps.event.addListener(actualMarker,'click',()=>{this.scanMarkerQR(marker.id,marker.position)})
             }
             
-            this.markers[marker.id] = {position:marker.position, markerElement:actualMarker}
+            this.markers[marker.id] = {type: marker.type, position:marker.position, markerElement:actualMarker}
 
+            const bounds = new this.google.maps.LatLngBounds();
+            Object.values(this.markers).forEach((markerRecord) => {
+              
+              bounds.extend(new this.google.maps.LatLng(markerRecord.position.lat, markerRecord.position.lng));
+            });
+            this.map.fitBounds(bounds);
         });
         //Így lehet markert törölni a térképről
         // this.markers[2].markerElement.setMap(null)
@@ -93,11 +101,11 @@ export default {
         // this.markers[<marker id-ja>].markerElement.setMap(null)
     },
     async setInitialMarkers(){
-        let challangeList;
-        challangeList = await listChallenges(this.userId)
-        if (!challangeList.length) {
-            await createTreasueChallenges(this.userId,this.userCurrentPosition.lat,this.userCurrentPosition.lng)
-            challangeList = await listChallenges(this.userId)
+        const userCurrentPosition = await getCurrentPosition();
+        let challangeList = await this._getMarkerChallenges();
+        if (challangeList.length <= 1) {
+            await createTreasueChallenges(User.id,userCurrentPosition.lat,userCurrentPosition.lng)
+            challangeList = await this._getMarkerChallenges();
         }
         challangeList.forEach(challange => {
             this.initialMarkers.push({
@@ -107,16 +115,29 @@ export default {
             })
         });
         this.initialMarkers.push({
-            position: this.userCurrentPosition,
+            position: userCurrentPosition,
             type:"you-are-here",
             id:0
         })
+    },
+    async _getMarkerChallenges() {
+      const challangeList = await listChallenges(User.id);
+      return challangeList.filter(challange => challange.challenge_type === 'TREASURE' || challange.challenge_type === 'RUSH');
+    },
+    _rushCompleted() {
+      Object.keys(this.markers).forEach((markerId) => {
+        if(this.markers[markerId].type === 'rush') {
+          this.removeMarker(markerId);
+        }
+      });
     },
     scanMarkerQR(markerId, markerPosition){
       this.$emit('onMarkerClick',{markerId,markerPosition})
     },
     removeMarker(markerId){
         this.markers[markerId].markerElement.setVisible(false)
+        this.markers[markerId].markerElement.setMap(null)
+        delete this.markers[markerId]
     }
   },
 //   async mounted(){

@@ -1,7 +1,7 @@
 async function postData(url = '', data = {}) {
     // Default options are marked with *
-    const baseUrl = process.env.BASE_URL || 'http://localhost:3000/'
-    const response = await fetch(`${baseUrl}api${url}`, {
+    const baseUrl = eval("window.origin")
+    const response = await fetch(`${baseUrl}/api${url}`, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
         headers: {
@@ -27,6 +27,10 @@ export async function verifyTreasure(userId, lat, lng, qr) {
 
 export async function verifyQR(userId, qr) {
     return postData('/user/challenge/verify', { user_id: userId, type: 'QR', params: {  qr } });
+}
+
+export async function verifyQuiz(userId, challengeId, answer) {
+    return postData('/user/challenge/verify', { user_id: userId, type: 'QUIZ', params: { id: challengeId, answer } });
 }
 
 export async function getStreak(userId) {

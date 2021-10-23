@@ -1,8 +1,9 @@
 <template>
   <Card width="100%">
-    <div class="cardTitle"><img src="/img/topup.svg"/> Topup</div>
+    <div class="cardTitle"><img src="/img/vodapoint.svg"/> Voda Point Balance</div>
     <div class="cardContent">
-      <div class="mybills">Add to balance</div>
+      <div><span class="big">35</span> <span class="bigish">Pts</span></div>
+      <div class="due">available until: 2021.12.11.</div>
     </div>
   </Card>
 </template>
@@ -17,12 +18,10 @@ export default {
 
 
 <style scoped>
-  .cardTitle {
-    
-  }
   .cardTitle img {
     height: 18px;
     width: 18px;
+    margin-bottom: 5px;
   }
   .cardContent {
     font-size: 25px;
@@ -30,6 +29,7 @@ export default {
   .cardContent .big {
     font-size: 35px;
     font-weight: 500;
+    margin-left: 20px;
   }
 
   .cardContent .bigish {
@@ -38,8 +38,9 @@ export default {
   }
 
   .due {
-    font-size: 20px;
+    font-size: 17px;
     color: var(--brand-lightgrey);
+    text-align: end;
   }
 
   .mybills {

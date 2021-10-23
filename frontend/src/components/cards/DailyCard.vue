@@ -1,8 +1,8 @@
 <template>
-  <Card width="100%">
-    <div class="cardTitle"><img src="/img/topup.svg"/> Topup</div>
-    <div class="cardContent">
-      <div class="mybills">Add to balance</div>
+  <Card bg="linear-gradient(301deg, rgb(230, 0, 0), rgb(130, 0, 0))" invertIcon width="100%">
+    <div class="cardTitle cwhite"><img src="/img/daily.svg"/> Daily Challange</div>
+    <div class="cardContent cwhite">
+      <div class="mybills">Complete the Daily Challange!</div>
     </div>
   </Card>
 </template>
@@ -44,5 +44,9 @@ export default {
 
   .mybills {
     font-size: 20px;
+  }
+
+  .cwhite {
+    color: var(--brand-white);
   }
 </style>

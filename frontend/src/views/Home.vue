@@ -8,7 +8,10 @@
         <div class="cardRow">
           <NetCard />
           <BillCard />
-          <TopUpCard />
+          <div class="topdaily">
+            <TopUpCard />
+            <DailyCard />
+          </div>
         </div>
         <h2>
           Discovery
@@ -27,10 +30,12 @@ import NetCard from '../components/cards/NetCard.vue'
 import BillCard from '../components/cards/BillCard.vue'
 import TopUpCard from '../components/cards/TopUpCard.vue'
 import MapCard from '../components/cards/MapCard.vue'
+import DailyCard from '../components/cards/DailyCard.vue'
 
 export default {
     name: 'Home',
-    components: { VodaLogo, Card, NetCard, BillCard, TopUpCard, MapCard }
+    components: { VodaLogo, Card, NetCard, BillCard,
+      TopUpCard, MapCard, DailyCard }
 }
 </script>
 <style scoped>
@@ -58,6 +63,12 @@ h2 {
 
 .maplink {
   width: 100%;
+}
+
+.topdaily {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
 }
 </style>
 
