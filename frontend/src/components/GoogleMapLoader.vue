@@ -31,7 +31,7 @@ export default {
         googleApiKey,
         markers:{},
         initialMarkers:[],
-        userCurrentPosition:{"lat":47.497913,"lng":19.040236},
+        userCurrentPosition:{"lat":47.497213,"lng":19.040236},
     }
   },
   async mounted() {
@@ -61,10 +61,15 @@ export default {
                     actualMarkerIcon = this.MarkerIcons.vodafoneDefaultMarker
                     actualMarkerSize = 30
                     break;
+                case "rush":
+                    actualMarkerIcon = this.MarkerIcons.vodafoneHighlightedMarker
+                    actualMarkerSize = 60
+                    break;
                 case "you-are-here":
                     actualMarkerIcon = this.MarkerIcons.youAreHereMarker
                     actualMarkerSize = 20
                     break;
+                
                 default:
                     actualMarkerIcon = this.MarkerIcons.vodafoneDefaultMarker
                     actualMarkerSize = 30
