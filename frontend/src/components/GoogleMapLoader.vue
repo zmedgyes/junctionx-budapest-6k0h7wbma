@@ -18,6 +18,7 @@ import { googleApiKey } from "../config/index"
 import { listChallenges } from "../remotes/remotes"
 import { createTreasueChallenges } from "../remotes/remotes"
 import { getCurrentPosition } from "../misc/geolocation"
+import { EventBus } from "../misc/event-bus"
 export default {
   props: {
     userId:Number
@@ -41,6 +42,7 @@ export default {
     })
     this.google = googleMapApi
     this.initializeMap()
+    EventBus.$on('rushCompleted', this._rushCompleted.bind(this));
   },
 
   methods: {
@@ -76,7 +78,7 @@ export default {
                 icon:{ url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(actualMarkerIcon), scaledSize: new this.google.maps.Size(actualMarkerSize, actualMarkerSize) }
             });
             this.google.maps.event.addListener(actualMarker,'click',()=>{this.scanMarkerQR(marker.id,marker.position)})
-            this.markers[marker.id] = {position:marker.position, markerElement:actualMarker}
+            this.markers[marker.id] = {type: marker.type, position:marker.position, markerElement:actualMarker}
 
             const bounds = new this.google.maps.LatLngBounds();
             Object.values(this.markers).forEach((markerRecord) => {
@@ -113,7 +115,14 @@ export default {
     async _getMarkerChallenges() {
       const challangeList = await listChallenges(this.userId);
       return challangeList.filter(challange => challange.challenge_type === 'TREASURE' || challange.challenge_type === 'RUSH');
-    }, 
+    },
+    _rushCompleted() {
+      Object.keys(this.markers).forEach((markerId) => {
+        if(this.markers[markerId].type === 'rush') {
+          this.removeMarker(markerId);
+        }
+      });
+    },
     scanMarkerQR(markerId, markerPosition){
       this.$emit('onMarkerClick',{markerId,markerPosition})
     },

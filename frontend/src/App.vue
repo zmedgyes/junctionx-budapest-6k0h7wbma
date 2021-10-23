@@ -15,6 +15,7 @@
 <script>
 import Loader from './components/Loader.vue'
 import BottomMenu from './components/BottomMenu.vue'
+import { PollingService } from './misc/polling';
 
 export default {
     name: 'App',
@@ -24,6 +25,9 @@ export default {
         return this.$store.state.isLoaderOn;
       },
     },
+    async created(){
+      PollingService.startPolling(1000, 1);
+    }
 }
 </script>
 
