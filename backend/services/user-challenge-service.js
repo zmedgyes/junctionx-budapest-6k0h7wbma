@@ -1,5 +1,5 @@
 const { CHALLENGE_TYPES } = require('../misc/types');
-const { shuffleArray, isNearby } = require('../misc/util');
+const { shuffleArray, isNearby, isSameDay, isNextDay } = require('../misc/util');
 const crypto = require('crypto');
 
 function _parseJSONFields(challenge) {
@@ -13,11 +13,12 @@ function _parseJSONFields(challenge) {
 }
 
 module.exports = class UserChallengeService {
-    static get $inject() { return ['db', 'overpassService', 'challengeService']; };
-    constructor(db, overpassService, challengeService) {
+    static get $inject() { return ['db', 'overpassService', 'challengeService', 'userService']; };
+    constructor(db, overpassService, challengeService, userService) {
         this.db = db;
         this.overpassService = overpassService;
         this.challengeService = challengeService;
+        this.userService = userService;
     }
 
     async getUserChallengesByUserId(userId) {
@@ -37,8 +38,11 @@ module.exports = class UserChallengeService {
 
     async verifyChallenge(userId, type, params) {
         const userChallenges = await this.getUserChallengesByUserIdAndType(userId, type);
-        const challenge = (userChallenges.length > 0) ? (await this.challengeService.getChallengeByType(type)) : null;
         const results = [];
+        if(userChallenges.length === 0) {
+            return results;
+        }
+        const challenge = await this.challengeService.getChallengeByType(type);
 
         if (type === CHALLENGE_TYPES.TREASURE) {
             for(let userChallenge of userChallenges) {
@@ -49,21 +53,19 @@ module.exports = class UserChallengeService {
                 }
             }
         } else if (type === CHALLENGE_TYPES.RUSH) {
-            if(userChallenges.length > 0) {
-                const timeout = (challenge.params.duration / challenge.params.decline) * 60000;
-                const now = new Date().getTime();
-                for(let userChallenge of userChallenges) {
-                    const passed = (now - userChallenge.params.start);
-                    if (passed >= timeout) {
-                        await this.deleteUserChallenge(userChallenge.id);
-                    } else if (isNearby(params.lat, params.lng, userChallenge.params.lat, userChallenge.params.lng, challenge.params.range)) {
-                        await this.deleteUserChallenge(userChallenge.id);
-                        const points = challenge.params.points - (Math.floor(passed * challenge.params.decline / 60000));
-                        results.push({ points });
-                    } else {
-                        results.push({ points: 0 });
-                    }
-                }      
+            const timeout = (challenge.params.duration / challenge.params.decline) * 60000;
+            const now = new Date().getTime();
+            for (let userChallenge of userChallenges) {
+                const passed = (now - userChallenge.params.start);
+                if (passed >= timeout) {
+                    await this.deleteUserChallenge(userChallenge.id);
+                } else if (isNearby(params.lat, params.lng, userChallenge.params.lat, userChallenge.params.lng, challenge.params.range)) {
+                    await this.deleteUserChallenge(userChallenge.id);
+                    const points = challenge.params.points - (Math.floor(passed * challenge.params.decline / 60000));
+                    results.push({ points });
+                } else {
+                    results.push({ points: 0 });
+                }
             }
         } else if (type === CHALLENGE_TYPES.RANDOM) {
             for(let userChallenge of userChallenges) {
@@ -79,6 +81,23 @@ module.exports = class UserChallengeService {
                     results.push({ points: userChallenge.params.points });
                 }
             }
+        } else if (type === CHALLENGE_TYPES.STREAK) {
+            const user = await this.userService.getUserById(userId);
+            const now = new Date().getTime();
+            const streak = user.data.streak || 0;
+            const lastLoginTime = user.data.lastLoginTime || now;
+            if (isSameDay(lastLoginTime, now)) {
+                // noop
+            } else if (isNextDay(lastLoginTime, now)) {
+                streak++;
+                const points = Math.min(challenge.params.dailyPoints * streak, challenge.params.maxPoints);
+                lastLoginTime = now;
+                results.push({ points });
+            } else {
+                streak = 0;
+                lastLoginTime = now;
+            }
+            await this.userService.updateUserData(userId, Object.assign(user.data, { streak, lastLoginTime }));
         }
         return results;
     }
@@ -96,6 +115,8 @@ module.exports = class UserChallengeService {
             await this._addUserChallenge(userId, type);
         } else if (type === CHALLENGE_TYPES.QR) {
             await this._addUserChallenge(userId, type, config);
+        } else if (type === CHALLENGE_TYPES.STREAK) {
+            await this._addUserChallenge(userId, type);
         }
     }
 

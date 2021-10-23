@@ -28,7 +28,7 @@ module.exports = class UserChallengeController {
         const  results = await this.userChallengeService.verifyChallenge(user_id, type, params);
         if(results.length > 0) {
             const points = results.reduce((sum, result) => sum + result.points, 0);
-            await this.userService.addPointsByUserId(user_id, points);
+            await this._addUserPoints(user_id, points);
             res.json({ success: true, points });
             return;
         }
@@ -65,6 +65,20 @@ module.exports = class UserChallengeController {
             await this.userChallengeService.createUserChallenges(user.user_id, CHALLENGE_TYPES.QR, config);
         }
         res.json({ success: true });
+    }
 
+    async getStreak(req, res, next) {
+        const { user_id } = req.body;
+        const results = await this.userChallengeService.verifyChallenge(user_id, CHALLENGE_TYPES.STREAK);
+        const points = results.reduce((sum, result) => sum + result.points, 0);
+        const streak = await this.userService.getStreakByUserId(user_id);
+        await this._addUserPoints(user_id, points);
+        res.json({ streak, points });
+    }
+
+    async _addUserPoints(user_id, points) {
+        if (points !== 0) {
+            await this.userService.addPointsByUserId(user_id, points);
+        }
     }
 }

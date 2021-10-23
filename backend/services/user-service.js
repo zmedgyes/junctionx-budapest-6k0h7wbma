@@ -71,4 +71,9 @@ module.exports = class UserService {
             await this.updateUserData(userId, Object.assign(user.data, { points }));
         }
     }
+
+    async getStreakByUserId(userId) {
+        const user = await this.getUserById(userId);
+        return (user && user.data.streak) || 0;
+    }
 }
