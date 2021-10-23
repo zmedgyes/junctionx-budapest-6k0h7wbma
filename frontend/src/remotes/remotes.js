@@ -22,11 +22,15 @@ export async function createTreasueChallenges(userId, lat, lng) {
 }
 
 export async function verifyTreasure(userId, lat, lng, qr) {
-    return postData('/user/challenge/verify', { user_id: userId, type: 'TREASURE', config: { lat, lng, qr } });
+    return postData('/user/challenge/verify', { user_id: userId, type: 'TREASURE', params: { lat, lng, qr } });
 }
 
 export async function verifyQR(userId, qr) {
-    return postData('/user/challenge/verify', { user_id: userId, type: 'QR', config: {  qr } });
+    return postData('/user/challenge/verify', { user_id: userId, type: 'QR', params: {  qr } });
+}
+
+export async function getStreak(userId) {
+    return postData('/user/challenge/getStreak', { user_id: userId });
 }
 
 export async function getPoints(userId) {
