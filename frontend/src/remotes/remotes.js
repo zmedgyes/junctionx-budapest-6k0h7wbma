@@ -21,8 +21,8 @@ export async function createTreasueChallenges(userId, lat, lng) {
     return postData('/user/challenge/create', { user_id: userId, type: 'TREASURE', config: { lat, lng } });
 }
 
-export async function verifyTreasure(userId, lat, lng, qr) {
-    return postData('/user/challenge/verify', { user_id: userId, type: 'TREASURE', params: { lat, lng, qr } });
+export async function verifyTreasure(userId, lat, lng, qr, id) {
+    return postData('/user/challenge/verify', { user_id: userId, type: 'TREASURE', params: { lat, lng, qr, id} });
 }
 
 export async function verifyQR(userId, qr) {
