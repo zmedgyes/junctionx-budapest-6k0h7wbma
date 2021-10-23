@@ -15,7 +15,7 @@ import { QrcodeStream } from 'vue3-qrcode-reader'
 
 export default {
   components: {QrcodeStream},
-  emits: ["closeQR"],
+  emits: ["closeQR","onQRDecode"],
   data () {
     return {
       result: '',
@@ -31,7 +31,10 @@ export default {
     onDecode (result) {
       this.result = result
       if (result) {
-        alert(result)
+        // alert(result)
+        this.$emit('onQRDecode',{success:true,QRContent:result})
+      }else{
+        this.$emit('onQRDecode',{success:false,QRContent:null})
       }
     },
 
