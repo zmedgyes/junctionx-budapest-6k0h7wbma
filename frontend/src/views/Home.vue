@@ -8,7 +8,7 @@
       <div class="homeContent">
         <div class="cardRow">
           <Card
-          bg="#f59999" style="text-align:center" class="streak-notification" v-if="isNotificationOn">
+          bg="#f59999" style="text-align:center" class="streak-notification" v-if="shouldNotify">
             <span style="color:white; font-weight:bold">1st day streak is pretty nice!</span>
           </Card>
         </div>
@@ -55,8 +55,13 @@ export default {
           dailyOverlayOpen: false,
           dataBalance:null,
           userFirstName: 'Alex',
-          isNotificationOn:true
+          // isNotificationOn:true
         }
+    },
+    computed: {
+      shouldNotify() {
+        return this.$store.state.isFirstHomeLoad
+      }
     },
     async mounted(){
       this.$store.dispatch('activateLoader')
@@ -70,7 +75,7 @@ export default {
         this.$store.dispatch('deActivateLoader')
        }, randomLoadingTime);
        setTimeout(()=>{
-         this.isNotificationOn = false
+         this.$store.dispatch('deActivateFirstHome')
         }, 3000);
     },
     methods: {
