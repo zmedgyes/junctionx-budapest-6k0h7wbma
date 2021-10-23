@@ -49,7 +49,87 @@ const svgMarkers = {
                 c-75.9,0-137.5-61.6-137.5-137.5S124.1,62.5,200,62.5S337.5,124.1,337.5,200S275.9,337.5,200,337.5z"/>
             <circle class="st6" cx="200" cy="200" r="137.5"/>
             <circle class="st7" cx="200" cy="200" r="125"/>
-        </svg>`
+        </svg>`,
+    vodafoneHighlightedMarker:`
+    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+    viewBox="0 0 1024 1527.1" style="enable-background:new 0 0 1024 1527.1;" xml:space="preserve">
+<style type="text/css">
+   .st0{fill:url(#SVGID_1_);}
+   .st1{fill:url(#SVGID_2_);}
+   .st2{fill:#990000;}
+   .st3{fill:#E60000;}
+   .st4{fill:#FFFFFF;}
+   .st5{fill:url(#SVGID_3_);}
+</style>
+<g>
+   <g>
+       <g>
+           <g>
+               
+                   <linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="525.4251" y1="1002.2531" x2="525.4251" y2="22.4514" gradientTransform="matrix(0.7071 -0.7071 0.6949 0.6949 -207.6066 493.4366)">
+                   <stop  offset="0" style="stop-color:#E60000"/>
+                   <stop  offset="6.721801e-02" style="stop-color:#DC0000"/>
+                   <stop  offset="0.3083" style="stop-color:#BF0000"/>
+                   <stop  offset="0.5468" style="stop-color:#AA0000"/>
+                   <stop  offset="0.7796" style="stop-color:#9D0000"/>
+                   <stop  offset="1" style="stop-color:#990000"/>
+               </linearGradient>
+               <polygon class="st0" points="899.5,779.3 821.4,857.4 140.5,176.6 218.6,98.5 				"/>
+           </g>
+           <g>
+               
+                   <linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="28.3643" y1="518.6144" x2="934.2996" y2="518.6144" gradientTransform="matrix(0.7071 -0.7071 0.7071 0.7071 -219.1725 481.8707)">
+                   <stop  offset="0" style="stop-color:#990000"/>
+                   <stop  offset="0.2526" style="stop-color:#9C0000"/>
+                   <stop  offset="0.4709" style="stop-color:#A70000"/>
+                   <stop  offset="0.6765" style="stop-color:#B90000"/>
+                   <stop  offset="0.8731" style="stop-color:#D20000"/>
+                   <stop  offset="1" style="stop-color:#E60000"/>
+               </linearGradient>
+               <polygon class="st1" points="206.7,867.6 128.5,789.5 769.1,148.9 847.2,227 				"/>
+           </g>
+       </g>
+       <g>
+           <path class="st2" d="M752.6,70.6C740,63,726.9,56,713.6,49.5C648.1,17.8,574.7,0,497.1,0C222.6,0,0,222.6,0,497.1
+               c0,4.3,0.1,8.6,0.2,12.8v0.1c5.2,202.9,132,375.6,310.3,447.9c57.6,23.4,120.6,36.2,186.7,36.2c274.5,0,497.1-222.6,497.1-497.1
+               C994.2,316,897.3,157.5,752.6,70.6z M138.1,497.1c0-198.3,160.7-359,359-359c57.7,0,112.2,13.6,160.5,37.8
+               c117.7,58.9,198.6,180.6,198.6,321.2c0,198.3-160.7,359-359,359c-46.1,0-90.1-8.7-130.6-24.5
+               C232.8,779.3,138.1,649.3,138.1,497.1z"/>
+       </g>
+       <g>
+           <path class="st3" d="M713.6,49.5c-31.3-12.7-64.2-22.3-98.4-28.4c-0.1,0-0.2,0-0.3-0.1c-28.6-5.1-58-7.8-88-7.8
+               c-274.5,0-497.1,222.6-497.1,497.1c0,196.9,114.5,367.1,280.6,447.6c65.4,31.7,138.9,49.5,216.5,49.5
+               c272.4,0,493.6-219.1,497-490.7v-0.7c0-1.9,0-3.8,0-5.7C1024,301.8,895.6,123.3,713.6,49.5z M526.9,869.3
+               c-57.7,0-112.2-13.6-160.5-37.8c-117.7-58.9-198.6-180.6-198.6-321.2c0-198.3,160.7-359,359-359c46.1,0,90.1,8.7,130.6,24.5
+               c133.7,52.2,228.4,182.3,228.4,334.5C885.9,708.6,725.2,869.3,526.9,869.3z"/>
+       </g>
+       <g>
+           <circle class="st2" cx="504.8" cy="500.4" r="248.5"/>
+       </g>
+       <g>
+           <path class="st3" d="M770.2,502.9c0,137.3-111.3,248.5-248.5,248.5S273.1,640.2,273.1,502.9s111.3-248.5,248.5-248.5
+               S770.2,365.6,770.2,502.9z"/>
+           <path class="st4" d="M523.6,640.6c-67.9,0.2-138.5-57.7-138.8-150.7c-0.2-61.5,33-120.8,75.4-155.9
+               c41.5-34.2,98.1-56.2,149.5-56.4c6.6,0,13.5,0.5,17.8,1.9c-45,9.3-80.7,51.2-80.6,98.6v0.1c0,1.4,0.1,2.8,0.3,4.1v-0.1
+               c75.2,18.3,109.4,63.8,109.6,126.5C657,571.4,607.4,640.3,523.6,640.6L523.6,640.6z"/>
+       </g>
+   </g>
+   <g>
+       <linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="512" y1="1527.1428" x2="512" y2="510.0191">
+           <stop  offset="0" style="stop-color:#E60000"/>
+           <stop  offset="7.713014e-02" style="stop-color:#DB0000"/>
+           <stop  offset="0.3118" style="stop-color:#BE0000"/>
+           <stop  offset="0.5457" style="stop-color:#AA0000"/>
+           <stop  offset="0.7763" style="stop-color:#9D0000"/>
+           <stop  offset="1" style="stop-color:#990000"/>
+       </linearGradient>
+       <path class="st5" d="M1024,522.7c0,403-512,1004.5-512,1004.5S0,927.8,0,522.7c0-4.2,0.1-8.5,0.2-12.7
+           c5.2,202.9,132,375.6,310.3,447.9c65.4,31.7,138.9,49.5,216.5,49.5c272.4,0,493.6-219.1,497-490.7
+           C1024,518.7,1024,520.7,1024,522.7z"/>
+   </g>
+</g>
+</svg>
+    `
 }
 
 module.exports = svgMarkers;
