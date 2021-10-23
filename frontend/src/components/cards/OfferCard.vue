@@ -1,6 +1,6 @@
 <template>
   <div>
-  <ExchangeConfirm @close="exchangeConfirmed" :offer="offer" :cost="cost" :amount="amount" :isData="isData" v-if="confirmOpen" />
+  <ExchangeConfirm @close="exchangeConfirmed" :offerId="offerId" :offer="offer" :cost="cost" :amount="amount" :isData="isData" v-if="confirmOpen" />
   <Card width="100%" @click="open">
     <div class="cardInner">
       <div class="cardTitle"><img :src="imgSrc"/></div>
@@ -17,8 +17,6 @@
 </template>
 
 <script>
-import { buyShopItem } from '../../remotes/remotes';
-import { USER_ID } from '../../misc/user';
 import Card from '../Card.vue'
 import ExchangeConfirm from '../ExchangeConfirm.vue'
 
@@ -62,9 +60,7 @@ export default {
     open() {
       this.confirmOpen = true
     },
-    async exchangeConfirmed() {
-      const { success } = await buyShopItem(USER_ID, this.offerId);
-      console.log('TODO: BUY FAILED');
+    exchangeConfirmed() {
       this.confirmOpen = false
       this.$emit("reloadNeeded")
     }

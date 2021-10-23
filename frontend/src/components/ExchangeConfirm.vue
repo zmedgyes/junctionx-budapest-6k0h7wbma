@@ -1,6 +1,6 @@
 <template>
   <div class="exchange-wrap">
-  <UserMessagee @closeUserMessage="emitClose" :style="{position: 'fixed', top: 0}" v-if="showMessage" :userMessageInfo="{mainMessage: 'Activation successful!', subMessage: 'Enjoy the activated service.', icon: 'success'}" />
+  <UserMessagee @closeUserMessage="emitClose" :style="{position: 'fixed', top: 0}" v-if="showMessage" :userMessageInfo="userMessageInfo" />
   <div :style="overlaystyle" class="ecoverlay">
     <ShopNav @close="emitClose" exitTo="PointShop" />
     <div class="textcontent">
@@ -29,6 +29,8 @@
 <script>
 import ShopNav from './ShopNav.vue'
 import UserMessagee from './UserMessagee.vue'
+import { buyShopItem } from '../remotes/remotes';
+import { USER_ID } from '../misc/user';
 
 export default {
   components: {ShopNav, UserMessagee},
@@ -36,12 +38,25 @@ export default {
     emitClose() {
       this.$emit('close')
     },
-    activateClick() {
+    async activateClick() {
+      const { success } = await buyShopItem(USER_ID, this.offerId);
+      if(!success) {
+        this.userMessageInfo = {
+      mainMessage: 'Activation failed!',
+      subMessage: 'You don\'t have enough points to redeem this item.',
+      icon: 'error'
+    }
+      }
       this.showMessage = true
     }
   },
   data() { return {
-    showMessage: false
+    showMessage: false,
+    userMessageInfo: {
+      mainMessage: 'Activation successful!',
+      subMessage: 'Enjoy the activated service.',
+      icon: 'success'
+    }
   }},
   computed: {
     overlaystyle() {
@@ -49,6 +64,9 @@ export default {
     }
   },
   props: {
+    offerId: {
+      type: String
+    },
     offer: {
       type: String
     },
