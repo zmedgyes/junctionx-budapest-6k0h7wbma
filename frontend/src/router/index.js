@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import Sample from '../views/Sample.vue'
 import GoogleMap from '../views/GoogleMap.vue'
 import NotFound from '../views/NotFound.vue'
+import PointShop from '../views/PointShop.vue'
 
 const routes = [
   {
@@ -19,6 +20,11 @@ const routes = [
     path: '/map',
     name: 'GoogleMap',
     component: GoogleMap
+  },
+  {
+    path: '/pointshop',
+    name: 'PointShop',
+    component: PointShop
   },
   {
     path: '/:catchAll(.*)',
