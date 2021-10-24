@@ -1,5 +1,8 @@
 <template>
 <div class="appRoot">
+    <QRScan v-if="!QRclosed"
+  @closeQR="onCloseQR"
+  @onQRDecode="onQRScan" />
   <!-- <router-view v-slot="{ Component }">
     <transition name="routes" mode="out-in">
       <component :is="Component"></component>
@@ -7,7 +10,7 @@
   </router-view> -->
   <router-view/>
   <Loader v-if="isLoaderOn"/>
-  <BottomMenu v-if="!isLoaderOn" />
+  <BottomMenu v-if="!isLoaderOn" @openRushQr="openRushQr"/>
   </div>
 </template>
 
@@ -15,12 +18,33 @@
 <script>
 import Loader from './components/Loader.vue'
 import BottomMenu from './components/BottomMenu.vue'
+import QRScan from './components/QRScan.vue'
 import { PollingService } from './misc/polling';
 import { User, USER_ID } from './misc/user';
 
 export default {
     name: 'App',
-    components : { Loader, BottomMenu },
+    components : { Loader, BottomMenu, QRScan },
+    data () {
+    return {
+      QRclosed: true
+    }
+  },
+    methods:{
+      openRushQr(){
+        this.QRclosed = false
+      },
+      onCloseQR(){
+        this.QRclosed = true
+      },
+      onQRScan(payload){
+        //-----------------------
+        //itt a qr feldolgozás
+        alert(payload.QRContent)
+        //-----------------------
+        
+      }
+    },
     computed:{
       isLoaderOn(){
         return this.$store.state.isLoaderOn;
