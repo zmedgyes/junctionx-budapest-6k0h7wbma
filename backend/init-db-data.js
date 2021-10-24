@@ -75,6 +75,18 @@ const { CHALLENGE_TYPES, SHOP_ITEM_TYPES, DEMO_LAT, DEMO_LNG } = require('./misc
                 await userChallengeService._addUserChallenge(user.user_id, CHALLENGE_TYPES.TREASURE, { lat: DEMO_LAT, lng: DEMO_LNG });
             }
         },
+        async (injector) => {
+            const userService = injector.get('userService');
+            const userChallengeService = injector.get('userChallengeService');
+            const users = await userService.listUsers();
+            for (let user of users) {
+                await userChallengeService._addUserChallenge(user.user_id, CHALLENGE_TYPES.RUSH, {
+                    start: new Date().getTime(),
+                    lat: 47.497913,
+                    lng: 19.040236
+                });
+            }
+        },
 
     ];
 

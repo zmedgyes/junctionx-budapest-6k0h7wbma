@@ -30,7 +30,7 @@ export default {
       await User.initUser(1);
     },
     async created(){
-      PollingService.startPolling(10000, USER_ID);
+      //PollingService.startPolling(10000, USER_ID);
     }
 }
 </script>
