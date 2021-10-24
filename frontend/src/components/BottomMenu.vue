@@ -1,5 +1,5 @@
 <template>
-
+<div>
 <div class="bmenuContainer">
   <DailyBox @cancel="this.dailyIsOpen = false" v-if="dailyIsOpen" />
   <QRScan v-if="qrIsOpen"
@@ -171,7 +171,7 @@
     </div>
   </div>
 </div>
-
+</div>
 </template>
 
 <script>
