@@ -65,13 +65,13 @@ export default {
   },
   props: {
     offerId: {
-      type: String
+      type: Number
     },
     offer: {
       type: String
     },
     cost: {
-      type: String
+      type: Number
     },
     amount: {
       type: String
