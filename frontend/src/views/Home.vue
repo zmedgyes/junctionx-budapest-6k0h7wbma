@@ -1,4 +1,5 @@
 <template>
+  <span>bbbb</span>
   <div class="home">
       <DailyBox @cancel="this.dailyOverlayOpen = false" v-if="dailyOverlayOpen" />
       <div class="titlebar">
@@ -32,7 +33,6 @@
         </div>
       </div>
   </div>
-  <span>bbbb</span>
 </template>
 
 <script>
